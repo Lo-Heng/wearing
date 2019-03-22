@@ -18,4 +18,8 @@
         completions."
     </string>
     <string name="title_activity_login2">Sign in</string>
+    <string name="input_accout">请输入账号</string>
+    <string name="input_password">请输入密码</string>
+    <string name="sign_up">注册</string>
+    <string name="login">登录</string>
 </resources>

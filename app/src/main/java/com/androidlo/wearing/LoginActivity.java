@@ -49,17 +49,9 @@ public class LoginActivity extends BaseActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mLoginFormView = findViewById(R.id.login_form);
 
-//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        Button btnLogin = (Button) findViewById(R.id.btn_log_in);
 
         mEmailView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
