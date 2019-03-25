@@ -57,14 +57,23 @@
 
             </android.support.design.widget.TextInputLayout>
 
-
-            <Button
-                android:id="@+id/btn_log_in"
-                style="@style/Normal_Button"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/login" />
+                android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/et_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_password"
+                    android:imeActionId="6"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_sign_up"
@@ -72,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/sign_up" />
+                android:text="@string/sign_up_and_login" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

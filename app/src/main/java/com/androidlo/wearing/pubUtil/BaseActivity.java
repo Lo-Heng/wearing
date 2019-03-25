@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidlo.wearing.LoginActivity;
 import com.androidlo.wearing.MainActivity;
 import com.androidlo.wearing.R;
 
@@ -39,6 +40,7 @@ public class BaseActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//禁止横屏
         setStatusBar();
         setCustomActionBar();
+        mProgressDialog = new ProgressDialog(BaseActivity.this);//1.创建一个ProgressDialog的实例
         bindView();
 
     }
@@ -160,7 +162,7 @@ public class BaseActivity extends AppCompatActivity {
         this.finish();
     }
 
-    public void showProgressDialog(final String msg) {
+    public synchronized void showProgressDialog(final String msg) {
 
         new Thread(new Runnable() {
             @Override
@@ -168,10 +170,11 @@ public class BaseActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mProgressDialog = new ProgressDialog(BaseActivity.this);//1.创建一个ProgressDialog的实例
+
                         mProgressDialog.setTitle("");//2.设置标题
                         mProgressDialog.setMessage(msg);//3.设置显示内容
                         mProgressDialog.setCancelable(true);//4.设置可否用back键关闭对话框
+                        if (!isFinishing() && mProgressDialog!= null)
                         mProgressDialog.show();//5.将ProgessDialog显示出来
                     }
                 });
@@ -192,6 +195,15 @@ public class BaseActivity extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    @Override
+    protected void onPause() {
+        if (mProgressDialog != null){
+            hideProgressDialog();
+        }
+        hideProgressDialog();
+        super.onPause();
     }
 
     @Override

@@ -50,4 +50,10 @@ public class SharedPreferencesUtil {
         return null;
     }
 
+    public static boolean contains(Context context, String key) {
+        SharedPreferences sp = context.getSharedPreferences(context.getApplicationContext().getString(R.string.app_name),
+                Context.MODE_PRIVATE);
+        return sp.contains(key);
+    }
+
 }
