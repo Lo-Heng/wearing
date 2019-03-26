@@ -2,12 +2,10 @@ package com.androidlo.wearing.pubUtil;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -16,13 +14,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidlo.wearing.LoginActivity;
-import com.androidlo.wearing.MainActivity;
+import com.androidlo.wearing.MainView.MainActivity;
 import com.androidlo.wearing.R;
 
 public class BaseActivity extends AppCompatActivity {
