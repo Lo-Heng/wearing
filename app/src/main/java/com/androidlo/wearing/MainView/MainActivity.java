@@ -4,6 +4,7 @@ package com.androidlo.wearing.MainView;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,18 +13,23 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.androidlo.wearing.MainView.View.CollocationFragment;
 import com.androidlo.wearing.MainView.View.MainFragment;
 import com.androidlo.wearing.R;
+import com.androidlo.wearing.pubUtil.BaseActivity;
 
 import static android.widget.ListPopupWindow.MATCH_PARENT;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
+    private Fragment currentFragment ;
     private MainFragment mainFragment;
     private TextView mTextMessage;
     long firstTime = 0L;
@@ -34,13 +40,17 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+//                    mTextMessage.setText(R.string.title_home);
+                    setCustomTitle("主页");
+                    switchFragment(MainFragment.getInstance()).commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+//                    mTextMessage.setText(R.string.title_dashboard);
+                    setCustomTitle("穿搭");
+                    switchFragment(CollocationFragment.getInstance()).commit();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+//                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -61,35 +71,23 @@ public class MainActivity extends AppCompatActivity {
 //        重新设置右碎片的布局
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-//        if (mainFragment == null) {
-//            mainFragment = new MainFragment();
-//        }
-//        mMFragmentManager = getSupportFragmentManager();
-//        mFragmentTransaction = mMFragmentManager.beginTransaction();
-//        //实例化要管理的fragment
-////                    rightFragment = new RightFragment();
-//        //通过添加（事务处理的方式）将fragment加到对应的布局中
-//        mFragmentTransaction.add(R.id.home,mainFragment);
-//        //事务处理完需要提交
-//        mFragmentTransaction.commit();
+//        switchFragment(new MainFragment()).commit();
 
 //         FragmentManager
         mFragmentManager = getSupportFragmentManager();
 //        通过begin开启事务
         mFragmentTransaction = mFragmentManager.beginTransaction();
 //        使用replace向容器内添加碎片
-        mFragmentTransaction.replace(R.id.ll_Container,new MainFragment());
+        mFragmentTransaction.replace(R.id.f_container, MainFragment.getInstance());
 //        将事务添加到返回栈中
         mFragmentTransaction.addToBackStack(null);
 //        拿到FrameLayout以便在设置其大小
-        mLlContainer = findViewById(R.id.ll_Container);
+        mLlContainer = findViewById(R.id.f_container);
 //        重新设置右碎片的布局
-        mLlContainer.setLayoutParams(new FrameLayout.LayoutParams(MATCH_PARENT,MATCH_PARENT,Gravity.LEFT));
+        mLlContainer.setLayoutParams(new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
 //        提交事务
         mFragmentTransaction.commit();
-
-
+        currentFragment  = MainFragment.getInstance();
 
     }
 //    //    左边碎片中的按钮绑定的事件
@@ -111,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 ////        土司一下，证明你点击有效
 //        Toast.makeText(MainActivity.this,"你点击了按钮",Toast.LENGTH_SHORT).show();
 //    }
+
     /**
      * 双击返回退出app
      */
@@ -128,4 +127,23 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    private FragmentTransaction switchFragment(Fragment targetFragment) {
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (!targetFragment.isAdded()) {
+            //第一次使用switchFragment()时currentFragment为null，所以要判断一下        
+            if (currentFragment != null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.add(R.id.f_container, targetFragment, targetFragment.getClass().getName());
+        } else {
+            transaction
+                    .hide(currentFragment)
+                    .show(targetFragment);
+        }
+        currentFragment = targetFragment;
+        return transaction;
+    }
+
 }

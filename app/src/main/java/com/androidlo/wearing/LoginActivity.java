@@ -37,7 +37,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        setTitle(getString(R.string.title_activity_login));
+        setCustomTitle(getString(R.string.title_activity_login));
         instance = this;
 
         mLlParent = findViewById(R.id.parent);

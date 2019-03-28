@@ -70,7 +70,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void setTitle(String title) {
+    public void setCustomTitle(String title) {
         mTvTitle.setText(title);
     }
 

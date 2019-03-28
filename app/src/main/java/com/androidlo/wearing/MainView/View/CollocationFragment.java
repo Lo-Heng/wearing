@@ -1,43 +1,32 @@
 package com.androidlo.wearing.MainView.View;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.androidlo.wearing.MainView.MainActivity;
 import com.androidlo.wearing.MainView.MyAdapter;
 import com.androidlo.wearing.MainView.model.BlogData;
 import com.androidlo.wearing.R;
-import com.androidlo.wearing.pubUtil.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.widget.ListPopupWindow.MATCH_PARENT;
-
-public class MainFragment extends Fragment {
+public class CollocationFragment extends Fragment {
 
 
 
-    public static MainFragment sMainFragment;
+    public static CollocationFragment sMainFragment;
 
-    public static MainFragment getInstance(){
+    public static CollocationFragment getInstance(){
         if(sMainFragment == null){
-            sMainFragment = new MainFragment();
+            sMainFragment = new CollocationFragment();
         }
         return sMainFragment;
     }
@@ -58,8 +47,7 @@ public class MainFragment extends Fragment {
         BlogData blogData1 = new BlogData();
         blogData.add(blogData1);
         blogData.add(blogData1);
-        blogData.add(blogData1);
-        blogData.add(blogData1);
+
         MyAdapter myAdapter = new MyAdapter(blogData);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(myAdapter);
