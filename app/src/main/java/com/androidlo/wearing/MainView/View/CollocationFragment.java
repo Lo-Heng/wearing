@@ -44,14 +44,12 @@ public class CollocationFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.rv_main);
         List<BlogData> blogData = new ArrayList<>();
-        BlogData blogData1 = new BlogData();
-        blogData.add(blogData1);
-        blogData.add(blogData1);
+
 
         MyAdapter myAdapter = new MyAdapter(blogData);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(myAdapter);
-        recyclerView.addItemDecoration(new RecyclerItemDecoration(6,3));
+        recyclerView.addItemDecoration(new RecyclerItemDecoration(10,2));
 
         return root;
     }

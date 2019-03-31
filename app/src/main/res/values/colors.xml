@@ -7,6 +7,6 @@
     <color name="TextPrimary">#212121</color>
     <color name="TextLight">#757575</color>
     <color name="Divider">#BDBDBD</color>
-
+    <color name="manuColor">#515151</color>
     <color name="White">#FFFFFF</color>
 </resources>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -71,48 +72,42 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        /**
-         * itemViewHolder内部类
-         * 还要增加一个换位的方法
-         * 考虑优化速度,如果需要元素换位,是否把位置写入固有属性
-         */
-        private TextView mTvTitle;
-        private TextView mTvHallName, mTvTime;
-        private LinearLayout mWarnLine;
-        private FrameLayout mFrameLayout;
+
+        private TextView mTvTitle,mTvSummarize,mTvAuthor;
+        private ImageView mIvIntroduce,mIvHeart;
+
+
 
 
         public ItemViewHolder(View itemView) {
             super(itemView);
 
             mTvTitle = itemView.findViewById(R.id.tv_title);
-
-
+            mIvIntroduce = itemView.findViewById(R.id.iv_introduce);
+            mTvSummarize = itemView.findViewById(R.id.tv_summarize);
+            mTvAuthor = itemView.findViewById(R.id.tv_author);
+            mIvHeart = itemView.findViewById(R.id.iv_heart);
         }
 
         public void setClick(final MyAdapter.ItemEvent mItemEvent, final int position) {
-//            mFrameLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (mItemEvent != null)
-//                        mItemEvent.onItemCLick(position);
-//                }
-//            });
+
         }
 
         /**
          * 显示绑定的对应数据
-         *
-         * @param hall
+
          */
-        public void bind(BlogData hall) {
+        public void bind(BlogData blogData) {
             //
-//            mHall1 = hall;
-//            mTvHallName.setText(hall.getHall_name());
-//            mTvID.setText(String.valueOf(hall.getHall_id()));
-
-//            Log.d("ItemViewHolder","name"+hall.getHall_name()+"isoffline?"+hall.isOffline());
-
+//            mTvTitle.setText(blogData.getTitle());
+            mTvSummarize.setText(blogData.getSummarize());
+            mIvIntroduce.setImageResource(blogData.getResId());
+            if(blogData.isCollect()){
+                mIvHeart.setImageResource(R.drawable.heart_fill);
+            }else{
+                mIvHeart.setImageResource(R.drawable.heart);
+            }
+            mTvAuthor.setText(blogData.getAuthor());
         }
 
 

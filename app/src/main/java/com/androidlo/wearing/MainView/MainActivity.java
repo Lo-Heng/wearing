@@ -3,14 +3,18 @@ package com.androidlo.wearing.MainView;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,14 +26,20 @@ import com.androidlo.wearing.MainView.View.CollocationFragment;
 import com.androidlo.wearing.MainView.View.MainFragment;
 import com.androidlo.wearing.R;
 import com.androidlo.wearing.pubUtil.BaseActivity;
+import com.androidlo.wearing.pubUtil.BottomNavigationViewHelper;
+
+import java.lang.reflect.Field;
 
 import static android.widget.ListPopupWindow.MATCH_PARENT;
+import static android.widget.ListPopupWindow.POSITION_PROMPT_ABOVE;
 
 public class MainActivity extends BaseActivity {
 
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
     private Fragment currentFragment ;
+    private FragmentManager mMFragmentManager;
+    private FrameLayout mLlContainer;
     private MainFragment mainFragment;
     private TextView mTextMessage;
     long firstTime = 0L;
@@ -50,14 +60,20 @@ public class MainActivity extends BaseActivity {
                     switchFragment(CollocationFragment.getInstance()).commit();
                     return true;
                 case R.id.navigation_notifications:
+                    setCustomTitle("我的");
+                    switchFragment(CollocationFragment.getInstance()).commit();
+//                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
+                case R.id.navigation_mine:
+                    setCustomTitle("我的");
+                    switchFragment(CollocationFragment.getInstance()).commit();
 //                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
         }
     };
-    private FragmentManager mMFragmentManager;
-    private FrameLayout mLlContainer;
+
 
 
     @Override
@@ -65,13 +81,14 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mTextMessage = findViewById(R.id.message);
 //        mFrameLayout = findViewById(R.id.fl_container);
         BottomNavigationView navigation = findViewById(R.id.navigation);
-//        重新设置右碎片的布局
 
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+//        重新设置右碎片的布局
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        switchFragment(new MainFragment()).commit();
 
 //         FragmentManager
         mFragmentManager = getSupportFragmentManager();
@@ -84,31 +101,15 @@ public class MainActivity extends BaseActivity {
 //        拿到FrameLayout以便在设置其大小
         mLlContainer = findViewById(R.id.f_container);
 //        重新设置右碎片的布局
-        mLlContainer.setLayoutParams(new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);//工具类哦
+        layoutParams.addRule(RelativeLayout.ABOVE, R.id.navigation);
+
+        mLlContainer.setLayoutParams(layoutParams);
 //        提交事务
         mFragmentTransaction.commit();
         currentFragment  = MainFragment.getInstance();
 
     }
-//    //    左边碎片中的按钮绑定的事件
-//    public void anotherRight(View v){
-////         FragmentManager
-//        fragmentManager = getSupportFragmentManager();
-////        通过begin开启事务
-//        fragmentTransaction = fragmentManager.beginTransaction();
-////        使用replace向容器内添加碎片
-//        fragmentTransaction.replace(R.id.right_layout,new AnotherRightFragment());
-////        将事务添加到返回栈中
-//        fragmentTransaction.addToBackStack(null);
-////        拿到FrameLayout以便在设置其大小
-//        frameLayout = (FrameLayout)findViewById(R.id.right_layout);
-////        重新设置右碎片的布局
-//        frameLayout.setLayoutParams(new LinearLayout.LayoutParams(0,MATCH_PARENT, 2.0f));
-////        提交事务
-//        fragmentTransaction.commit();
-////        土司一下，证明你点击有效
-//        Toast.makeText(MainActivity.this,"你点击了按钮",Toast.LENGTH_SHORT).show();
-//    }
 
     /**
      * 双击返回退出app

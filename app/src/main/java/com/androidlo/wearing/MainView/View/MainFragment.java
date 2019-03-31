@@ -34,6 +34,7 @@ public class MainFragment extends Fragment {
 
 
     public static MainFragment sMainFragment;
+    private List<BlogData> mBlogData;
 
     public static MainFragment getInstance(){
         if(sMainFragment == null){
@@ -54,19 +55,28 @@ public class MainFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.rv_main);
-        List<BlogData> blogData = new ArrayList<>();
-        BlogData blogData1 = new BlogData();
-        blogData.add(blogData1);
-        blogData.add(blogData1);
-        blogData.add(blogData1);
-        blogData.add(blogData1);
-        MyAdapter myAdapter = new MyAdapter(blogData);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        mBlogData = new ArrayList<>();
+initData();
+        MyAdapter myAdapter = new MyAdapter(mBlogData);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(myAdapter);
-        recyclerView.addItemDecoration(new RecyclerItemDecoration(6,3));
+        recyclerView.addItemDecoration(new RecyclerItemDecoration(6,2));
 
         return root;
     }
+
+    private void initData() {
+        BlogData blogData1 = new BlogData(R.drawable.main1,"潮流穿搭1","简介简介简介","用户1",true);
+        BlogData blogData2 = new BlogData(R.drawable.main2,"潮流穿搭2","简介简介简介","用户2",true);
+        BlogData blogData3 = new BlogData(R.drawable.main3,"潮流穿搭3","简介简介简介","用户3",true);
+        mBlogData.add(blogData1);
+        mBlogData.add(blogData1);
+        mBlogData.add(blogData1);
+        mBlogData.add(blogData2);
+        mBlogData.add(blogData3);
+        mBlogData.add(blogData3);
+    }
+
 
     @Override
     public void onAttach(Context context) {
