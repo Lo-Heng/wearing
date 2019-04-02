@@ -8,5 +8,6 @@
     <color name="TextLight">#757575</color>
     <color name="Divider">#BDBDBD</color>
     <color name="manuColor">#515151</color>
-    <color name="White">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transBlack">#AA000000</color>
 </resources>

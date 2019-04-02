@@ -1,6 +1,7 @@
 package com.androidlo.wearing.pubUtil;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
@@ -28,6 +29,9 @@ public class BottomNavigationViewHelper {
                 item.setShiftingMode(false);
                 // set once again checked value, so view will be updated
                 //noinspection RestrictedApi
+
+                item.setDrawingCacheBackgroundColor(0x000000);
+
                 item.setChecked(item.getItemData().isChecked());
             }
         } catch (NoSuchFieldException e) {

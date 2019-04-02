@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.androidlo.wearing.MainView.MainActivity;
 import com.androidlo.wearing.R;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public ProgressDialog mProgressDialog;
     private View mActionBarView;
@@ -206,4 +206,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

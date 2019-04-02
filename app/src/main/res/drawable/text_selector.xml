@@ -3,7 +3,7 @@
 
     <item android:color="#000" android:state_pressed="true" />
     <item android:color="#fff" android:state_focused="true" />
-    <item android:color="@color/White" />
+    <item android:color="@color/white" />
 
 
 </selector>

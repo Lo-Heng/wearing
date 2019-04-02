@@ -25,4 +25,6 @@
     <string name="sign_up">注册</string>
     <string name="sign_up_and_login">注册并登录</string>
     <string name="login">登录</string>
+    <string name="title_collocation">穿搭</string>
+    <string name="title_message">消息</string>
 </resources>
