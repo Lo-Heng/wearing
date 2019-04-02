@@ -18,7 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.androidlo.wearing.MainView.View.BlankFragment;
+import com.androidlo.wearing.MainView.View.MineFragment;
+import com.androidlo.wearing.MainView.View.PublishFragment;
 import com.androidlo.wearing.MainView.View.CollocationFragment;
 import com.androidlo.wearing.MainView.View.MainFragment;
 import com.androidlo.wearing.R;
@@ -58,7 +59,7 @@ public class MainActivity extends BaseActivity   {
                 case R.id.navigation_publish:
 
 //                    setCustomTitle(getString(R.string.title_publish));
-                    switchFragment(BlankFragment.getInstance()).commit();
+                    switchFragment(PublishFragment.getInstance()).commit();
 //                    mTextMessage.setText(R.string.title_notifications);
                     return true;
                 case R.id.navigation_message:
@@ -68,7 +69,7 @@ public class MainActivity extends BaseActivity   {
                     return true;
                 case R.id.navigation_mine:
                     setCustomTitle(getString(R.string.title_mine));
-                    switchFragment(CollocationFragment.getInstance()).commit();
+                    switchFragment(MineFragment.getInstance()).commit();
 //                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }

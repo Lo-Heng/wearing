@@ -88,11 +88,12 @@ public class LoginActivity extends BaseActivity {
             showSnack("输入不能为空");
         } else if (acc.isEmpty()) {
             showSnack("输入不能为空");
-        } else if (!SharedPreferencesUtil.contains(this, acc)) {
+        } else if (!SharedPreferencesUtil.contains(this, acc,acc)) {
             showSnack("用户不存在");
         } else {
             String savedPwd = "";
-            savedPwd = (String) SharedPreferencesUtil.get(this, acc, savedPwd);
+            savedPwd = (String) SharedPreferencesUtil.get(this, acc,acc, savedPwd);
+            SharedPreferencesUtil.save(this,getString(R.string.app_name),"currentAccount",acc);
             if (savedPwd != null && savedPwd.equals(pwd)) {
                 accFlag = true;
             }else{

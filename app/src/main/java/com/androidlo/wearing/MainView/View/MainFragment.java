@@ -1,43 +1,45 @@
 package com.androidlo.wearing.MainView.View;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.androidlo.wearing.MainView.MainActivity;
 import com.androidlo.wearing.MainView.MyAdapter;
 import com.androidlo.wearing.MainView.model.BlogData;
+import com.androidlo.wearing.MainView.model.Constant;
 import com.androidlo.wearing.R;
-import com.androidlo.wearing.pubUtil.BaseActivity;
+import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.widget.ListPopupWindow.MATCH_PARENT;
 
 public class MainFragment extends Fragment {
 
 
-
     public static MainFragment sMainFragment;
-    private List<BlogData> mBlogData;
+    private List<BlogData> mBlogDataList;
+    private MyAdapter mAdapter;
 
-    public static MainFragment getInstance(){
-        if(sMainFragment == null){
+    public static MainFragment getInstance() {
+        if (sMainFragment == null) {
             sMainFragment = new MainFragment();
         }
         return sMainFragment;
@@ -55,32 +57,42 @@ public class MainFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.rv_main);
-        mBlogData = new ArrayList<>();
-initData();
-        MyAdapter myAdapter = new MyAdapter(mBlogData);
+        mBlogDataList = new ArrayList<>();
+        initData();
+        mAdapter = new MyAdapter(mBlogDataList);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.addItemDecoration(new RecyclerItemDecoration(6,2));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addItemDecoration(new RecyclerItemDecoration(6, 2));
+        mAdapter.setItemEvent(new MyAdapter.ItemEvent() {
+            @Override
+            public void onItemClick(int position) {
 
+            }
+
+            @Override
+            public void onHeartClick(int position) {
+                mBlogDataList.get(position).setCollect(!mBlogDataList.get(position).isCollect());
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         return root;
     }
 
     private void initData() {
-        BlogData blogData1 = new BlogData(R.drawable.main1,"潮流穿搭1","简介简介简介","用户1",true);
-        BlogData blogData2 = new BlogData(R.drawable.main2,"潮流穿搭2","简介简介简介","用户2",true);
-        BlogData blogData3 = new BlogData(R.drawable.main3,"潮流穿搭3","简介简介简介","用户3",true);
-        mBlogData.add(blogData1);
-        mBlogData.add(blogData1);
-        mBlogData.add(blogData1);
-        mBlogData.add(blogData2);
-        mBlogData.add(blogData3);
-        mBlogData.add(blogData3);
+//        BlogData blogData1 = new BlogData(getResources().getDrawable(R.drawable.main1), "潮流穿搭1", "简介简介简介", "用户1", true);
+//        BlogData blogData2 = new BlogData(getResources().getDrawable(R.drawable.main2), "潮流穿搭2", "简介简介简介", "用户2", true);
+//        BlogData blogData3 = new BlogData(getResources().getDrawable(R.drawable.main3), "潮流穿搭3", "简介简介简介", "用户3", true);
+//        mBlogDataList.add(blogData1);
+//        mBlogDataList.add(blogData2);
+//        mBlogDataList.add(blogData3);
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+
     }
 
     public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
@@ -105,5 +117,45 @@ initData();
         }
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //Fragment隐藏时调用    
+        } else {
+            //Fragment显示时调用    
+            String account = "", jsonBlogData = "";
+            BlogData blogData;
+            account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), "currentAccount", account);
 
+            jsonBlogData = (String) SharedPreferencesUtil.get(getContext(), account, Constant.KEY_PUBLISH_BLOG, jsonBlogData);
+
+            if (jsonBlogData != null && !jsonBlogData.isEmpty()) {
+                Gson gson = new GsonBuilder()
+                        .registerTypeAdapter(Uri.class, new UriDeserializer())
+                        .create();
+                blogData = gson.fromJson(jsonBlogData, BlogData.class);
+
+                mBlogDataList.add(blogData);
+                SharedPreferencesUtil.remove(getContext(),account,Constant.KEY_PUBLISH_BLOG);//删除
+                mAdapter.notifyDataSetChanged();
+
+            }
+        }
+    }
+
+    public class UriSerializer implements JsonSerializer<Uri> {
+        public JsonElement serialize(Uri src, Type typeOfSrc,
+                                     JsonSerializationContext context) {
+            return new JsonPrimitive(src.toString());
+        }
+    }
+
+    public class UriDeserializer implements JsonDeserializer<Uri> {
+        @Override
+        public Uri deserialize(final JsonElement src, final Type srcType,
+                               final JsonDeserializationContext context) throws JsonParseException {
+            return Uri.parse(src.getAsString());
+        }
+    }
 }

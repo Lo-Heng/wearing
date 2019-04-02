@@ -6,15 +6,21 @@ import android.content.SharedPreferences;
 
 import com.androidlo.wearing.R;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class SharedPreferencesUtil {
 
     public SharedPreferencesUtil() {
 
     }
 
-    public static void save(Context context, String key, Object value) {
+    public static void save(Context context, String fileName, String key, Object value) {
         //步骤1：创建一个SharedPreferences对象
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getApplicationContext().getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
         //步骤2： 实例化SharedPreferences.Editor对象
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //步骤3：将获取过来的值放入文件
@@ -32,9 +38,8 @@ public class SharedPreferencesUtil {
         editor.apply();
     }
 
-    public static Object get(Context context, String key, Object defaultObject) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getApplicationContext().getString(R.string.app_name),
-                Context.MODE_PRIVATE);
+    public static Object get(Context context,String fileName ,String key, Object defaultObject) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {
             return sharedPreferences.getString(key, (String) defaultObject);
@@ -50,10 +55,20 @@ public class SharedPreferencesUtil {
         return null;
     }
 
-    public static boolean contains(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(context.getApplicationContext().getString(R.string.app_name),
+    public static boolean contains(Context context, String fileName,String key) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
     }
+
+    public static void remove(Context context,String fileName ,String key){
+        SharedPreferences sp = context.getSharedPreferences(fileName,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
+
+
 
 }

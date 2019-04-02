@@ -1,6 +1,10 @@
 package com.androidlo.wearing.MainView;
 
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
@@ -9,9 +13,7 @@ import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidlo.wearing.MainView.model.BlogData;
@@ -53,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ItemViewHolder itemViewHolder = ((ItemViewHolder) holder);
 
         itemViewHolder.setClick(mItemEvent, position);//设置某一条item的点击事件
-        itemViewHolder.bind(mDataList.get(position));//显示
+        itemViewHolder.bind(mDataList.get(position),position);//显示
 
     }
 
@@ -67,7 +69,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //回调接口,当item被点击的时候使用
     public interface ItemEvent {
-        void onItemCLick(int position);//点击事件
+        void onItemClick(int position);//点击事件
+
+        void onHeartClick(int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -97,11 +101,21 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
          * 显示绑定的对应数据
 
          */
-        public void bind(BlogData blogData) {
+        public void bind(final BlogData blogData, final int position) {
             //
 //            mTvTitle.setText(blogData.getTitle());
             mTvSummarize.setText(blogData.getSummarize());
-            mIvIntroduce.setImageResource(blogData.getResId());
+
+
+                mIvIntroduce.setImageURI(blogData.getUri());
+
+            mIvHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mItemEvent.onHeartClick(position);
+                }
+            });
+
             if(blogData.isCollect()){
                 mIvHeart.setImageResource(R.drawable.heart_fill);
             }else{

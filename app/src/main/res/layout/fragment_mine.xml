@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_my_collect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MyLinearLayout">
+
+        <TextView
+            android:id="@+id/tv_my_collect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的收藏"
+            android:textColor="@color/TextPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_my_collect"
+            android:text="显示我的收藏搭配"
+            android:textColor="@color/TextLight"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+    <!--分割线-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/Divider" />
+
+    <RelativeLayout
+        android:id="@+id/ll_myPublish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MyLinearLayout">
+
+        <TextView
+            android:id="@+id/tv_my_publish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的发布"
+            android:textColor="@color/TextPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_my_publish"
+            android:text="显示我发布的搭配"
+            android:textColor="@color/TextLight"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+    <!--分割线-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/Divider" />
+
+    <RelativeLayout
+        android:id="@+id/ll_my_subscribe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MyLinearLayout">
+
+        <TextView
+            android:id="@+id/tv_my_subscribe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的关注"
+            android:textColor="@color/TextPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_my_subscribe"
+            android:text="显示我关注的作者"
+            android:textColor="@color/TextLight"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+
+    <!--start 我的发布-->
+</LinearLayout>

@@ -11,5 +11,13 @@
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:textColor">@drawable/text_selector</item>
     </style>
-
+    <style name="Button_Light" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/btn_selector_light</item>
+        <item name="android:textColor">@drawable/text_selector_light</item>
+    </style>
+    <style name="MyLinearLayout" >
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:clickable">true</item>
+    </style>
 </resources>

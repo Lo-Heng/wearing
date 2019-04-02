@@ -92,7 +92,9 @@ public class RegisterActivity extends BaseActivity {
             showSnack("密码不一致");
             return false;
         }else if(confirmPwd.equals(pwd)){
-            SharedPreferencesUtil.save(this, acc, pwd);
+            //存入当前账户
+            SharedPreferencesUtil.save(this,getString(R.string.app_name),"currentAccount",acc);
+            SharedPreferencesUtil.save(this,acc, acc, pwd);
             return true;
         }else{
             showSnack("错误，原因不明，请反馈");

@@ -1,10 +1,12 @@
 package com.androidlo.wearing.MainView.model;
 
 
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 public class BlogData {
     //图片资源文件
-    private int resId;
+    private Uri uri;
     //标题
     private String title;
     //摘要
@@ -15,10 +17,10 @@ public class BlogData {
     private boolean isCollect;
 
 
-    public BlogData(int resId,String title,String summarize,String author,boolean isCollect){
+    public BlogData(Uri uri, String title, String summarize, String author, boolean isCollect){
         this.title = title;
         this.summarize = summarize;
-        this.resId = resId;
+        this.uri = uri;
         this.author = author;
         this.isCollect = isCollect;
     }
@@ -39,12 +41,12 @@ public class BlogData {
         this.summarize = summarize;
     }
 
-    public int getResId() {
-        return resId;
+    public Uri getUri() {
+        return uri;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
     public String getAuthor() {

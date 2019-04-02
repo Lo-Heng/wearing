@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 
 import com.androidlo.wearing.R;
 
-public class BlankFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
 
 
-    public static BlankFragment sFragment;
+    public static MessageFragment sMineFragment;
 
-    public static BlankFragment getInstance(){
-        if(sFragment == null){
-            sFragment = new BlankFragment();
+    public static MessageFragment getInstance(){
+        if(sMineFragment == null){
+            sMineFragment = new MessageFragment();
         }
-        return sFragment;
+        return sMineFragment;
     }
 
     @Override
@@ -33,7 +33,9 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View root = inflater.inflate(R.layout.fragment_blank, container, false);
+        View root = inflater.inflate(R.layout.fragment_mine, container, false);
+
+
 
 
         return root;
