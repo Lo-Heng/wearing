@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import com.androidlo.wearing.model.BlogData;
 import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.R;
+import com.androidlo.wearing.model.ListManager;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,6 +52,7 @@ public class PublishFragment extends Fragment {
     private EditText mEtPublishSummarize;
     private ImageView mIvPublishPhoto;
     private Uri mUri;
+    private ListManager mListManager;
 
     public static PublishFragment getInstance() {
         if (sFragment == null) {
@@ -62,6 +64,8 @@ public class PublishFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mListManager = new ListManager(getContext());
+
     }
 
     @Nullable
@@ -96,7 +100,6 @@ public class PublishFragment extends Fragment {
                     ActivityCompat.requestPermissions(getActivity(),
                             new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, Constant.ALBUM_REQUEST_CODE);
                 }
-
             }
         });
 
@@ -117,7 +120,7 @@ public class PublishFragment extends Fragment {
                     uriStr = uriStr.replace(" ","x160x");
                     uriStr = uriStr.replace(":","x003ax");
                     blogData = new BlogData(uriStr, title, summarize, getFileName(), false);
-                    blogDataList = getObjectList();
+                    blogDataList = mListManager.getObjectList();
                     blogDataList.add(blogData);
                     SharedPreferencesUtil.setDataList(getContext(),getFileName(),Constant.KEY_MAIN_FRAGMENT_LIST,blogDataList);
 
@@ -126,7 +129,6 @@ public class PublishFragment extends Fragment {
 //                            .create();
 
 //                    SharedPreferencesUtil.save(getContext(), account, Constant.KEY_PUBLISH_BLOG, gson.toJson(blogData));
-
 
                 }
 
@@ -140,11 +142,6 @@ public class PublishFragment extends Fragment {
         return account;
     }
 
-    private String  getList() {
-
-        return SharedPreferencesUtil.getDataList(getContext(), getFileName(), Constant.KEY_MAIN_FRAGMENT_LIST).toString().trim();
-    }
-
     /**
      * 从相册获取图片
      */
@@ -154,36 +151,6 @@ public class PublishFragment extends Fragment {
         startActivityForResult(photoPickerIntent, Constant.ALBUM_REQUEST_CODE);
     }
 
-    //定制json解析器
-    private List<BlogData> getObjectList( ) {
-        String jsonString = getList();
-        List<BlogData> blogDataList = new ArrayList<>();
-        if (jsonString != null && jsonString.isEmpty()) {
-            return null;
-        } else {
-            try {
-                JSONArray jsonArray = new JSONArray(jsonString);
-                for(int i=0;i<jsonArray.length();i++){
-                    BlogData blogData = new BlogData();
-                    blogData.setAuthor(jsonArray.getJSONObject(i).getString("author"));
-                    blogData.setCollect(jsonArray.getJSONObject(i).getBoolean("isCollect"));
-                    blogData.setSummarize(jsonArray.getJSONObject(i).getString("summarize"));
-                    blogData.setTitle(jsonArray.getJSONObject(i).getString("title"));
-                    String uriStr = jsonArray.getJSONObject(i).getString("uri");
-//                    uriStr = uriStr.replace("x0027x","/");
-//                    uriStr = uriStr.replace("x160x"," ");
-//                    uriStr = uriStr.replace("x003ax",":");
-                    blogData.setUri(uriStr);
-
-                    blogDataList.add(blogData);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return blogDataList;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

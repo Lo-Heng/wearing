@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_blooth_talk"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa">
+
+<ImageView
+    android:id="@+id/iv_body"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:src="@drawable/lady"
+    android:adjustViewBounds="true" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:paddingRight="40dp"
+
+        android:scaleType="fitCenter"
+        android:src="@drawable/cap1" />
+
+</FrameLayout>

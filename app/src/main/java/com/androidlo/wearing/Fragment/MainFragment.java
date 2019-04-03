@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidlo.wearing.model.ListManager;
 import com.androidlo.wearing.model.MyAdapter;
 import com.androidlo.wearing.model.BlogData;
 import com.androidlo.wearing.model.Constant;
@@ -40,6 +41,7 @@ public class MainFragment extends Fragment {
     public static MainFragment sMainFragment;
     private List<BlogData> mBlogDataList;
     private MyAdapter mAdapter;
+    private ListManager mListManager;
 
     public static MainFragment getInstance() {
         if (sMainFragment == null) {
@@ -64,6 +66,7 @@ public class MainFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.rv_main);
         mBlogDataList = new ArrayList<>();
         initData();
+        mListManager = new ListManager(getContext());
         mAdapter = new MyAdapter(mBlogDataList);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(mAdapter);
@@ -73,7 +76,7 @@ public class MainFragment extends Fragment {
         String account = "", jsonBlogData = "";
         List<BlogData> blogDataList;
         //Fragment隐藏时调用
-        blogDataList = getObjectList();
+        blogDataList = mListManager.getObjectList();
         if(blogDataList != null){
             mBlogDataList.clear();
             mBlogDataList.addAll(blogDataList);
@@ -149,7 +152,7 @@ public class MainFragment extends Fragment {
             String account = "", jsonBlogData = "";
             List<BlogData> blogDataList;
             //Fragment隐藏时调用
-            blogDataList = getObjectList();
+            blogDataList = mListManager.getObjectList();
             if(blogDataList != null){
                 mBlogDataList.clear();
                 mBlogDataList.addAll(blogDataList);
@@ -170,37 +173,8 @@ public class MainFragment extends Fragment {
 //            }
         }
     }
-    private String  getList() {
-        return SharedPreferencesUtil.getDataList(getContext(), getFileName(), Constant.KEY_MAIN_FRAGMENT_LIST).toString().trim();
-    }
-    //定制json解析器
-    private List<BlogData> getObjectList( ) {
-        String jsonString = getList();
-        List<BlogData> blogDataList = new ArrayList<>();
-        if (jsonString != null && jsonString.isEmpty()) {
-            return null;
-        } else {
-            try {
-                JSONArray jsonArray = new JSONArray(jsonString);
-                for(int i=0;i<jsonArray.length();i++){
-                    BlogData blogData = new BlogData();
-                    blogData.setAuthor(jsonArray.getJSONObject(i).getString("author"));
-                    blogData.setCollect(jsonArray.getJSONObject(i).getBoolean("isCollect"));
-                    blogData.setSummarize(jsonArray.getJSONObject(i).getString("summarize"));
-                    blogData.setTitle(jsonArray.getJSONObject(i).getString("title"));
-                    String uriStr = jsonArray.getJSONObject(i).getString("uri");
 
-                    blogData.setUri(uriStr);
 
-                    blogDataList.add(blogData);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return blogDataList;
-    }
 
     public class UriSerializer implements JsonSerializer<Uri> {
         public JsonElement serialize(Uri src, Type typeOfSrc,
