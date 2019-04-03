@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/ll_my_collect"
+        android:id="@+id/rl_my_collect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/MyLinearLayout">
@@ -41,7 +41,7 @@
         android:background="@color/Divider" />
 
     <RelativeLayout
-        android:id="@+id/ll_myPublish"
+        android:id="@+id/rl_my_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/MyLinearLayout">
@@ -76,7 +76,7 @@
         android:background="@color/Divider" />
 
     <RelativeLayout
-        android:id="@+id/ll_my_subscribe"
+        android:id="@+id/rl_my_subscribe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/MyLinearLayout">

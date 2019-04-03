@@ -15,11 +15,37 @@
     android:adjustViewBounds="true" />
 
     <ImageView
+        android:id="@+id/iv_cap"
         android:layout_width="300dp"
-        android:layout_height="80dp"
+        android:layout_height="86dp"
         android:paddingRight="40dp"
-
         android:scaleType="fitCenter"
-        android:src="@drawable/cap1" />
+        android:src="@drawable/cap2" />
 
+    <ImageView
+        android:id="@+id/iv_trousers"
+        android:layout_width="300dp"
+        android:layout_height="245dp"
+        android:layout_marginTop="305dp"
+        android:paddingRight="121dp"
+        android:paddingLeft="80dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/trousers1" />
+    <ImageView
+        android:id="@+id/iv_shirt"
+        android:layout_width="300dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="160dp"
+        android:paddingRight="40dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/shirt1" />
+    <ImageView
+        android:id="@+id/iv_shoes"
+        android:layout_gravity="bottom"
+        android:layout_width="300dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="10dp"
+        android:paddingRight="40dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/shoes1" />
 </FrameLayout>

@@ -24,6 +24,7 @@ import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.R;
 import com.androidlo.wearing.model.ListManager;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
+import com.androidlo.wearing.pubUtil.UriUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -115,13 +116,16 @@ public class PublishFragment extends Fragment {
                 account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), "currentAccount", account);
                 Drawable.ConstantState drawable = mIvPublishPhoto.getDrawable().getConstantState();
                 if (!title.isEmpty() && !summarize.isEmpty() && !getResources().getDrawable(R.drawable.plus_bg).getConstantState().equals(drawable)) {
-                    String uriStr = mUri.toString();
+                    String uriStr;
+                    Uri fileUri = UriUtils.getFileUri(getContext(),mUri);
+                    uriStr = fileUri.toString();
                     uriStr = uriStr.replace("/","x0027x");
                     uriStr = uriStr.replace(" ","x160x");
                     uriStr = uriStr.replace(":","x003ax");
                     blogData = new BlogData(uriStr, title, summarize, getFileName(), false);
                     blogDataList = mListManager.getObjectList();
                     blogDataList.add(blogData);
+
                     SharedPreferencesUtil.setDataList(getContext(),getFileName(),Constant.KEY_MAIN_FRAGMENT_LIST,blogDataList);
 
 //                    Gson gson = new GsonBuilder()

@@ -17,7 +17,9 @@ import com.androidlo.wearing.model.MyAdapter;
 import com.androidlo.wearing.model.BlogData;
 import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.R;
+import com.androidlo.wearing.pubUtil.RecyclerItemDecoration;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
+import com.androidlo.wearing.pubUtil.UriUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -65,19 +67,20 @@ public class MainFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.rv_main);
         mBlogDataList = new ArrayList<>();
-        initData();
+
         mListManager = new ListManager(getContext());
+
         mAdapter = new MyAdapter(mBlogDataList);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecyclerItemDecoration(6, 2));
-
+        initData();
 
         String account = "", jsonBlogData = "";
         List<BlogData> blogDataList;
         //Fragment隐藏时调用
         blogDataList = mListManager.getObjectList();
-        if(blogDataList != null){
+        if (blogDataList != null) {
             mBlogDataList.clear();
             mBlogDataList.addAll(blogDataList);
             mAdapter.notifyDataSetChanged();
@@ -91,6 +94,8 @@ public class MainFragment extends Fragment {
             @Override
             public void onHeartClick(int position) {
                 mBlogDataList.get(position).setCollect(!mBlogDataList.get(position).isCollect());
+                SharedPreferencesUtil.setDataList(getContext(), getFileName(), Constant.KEY_MAIN_FRAGMENT_LIST, mBlogDataList);
+
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -98,12 +103,15 @@ public class MainFragment extends Fragment {
     }
 
     private void initData() {
-//        BlogData blogData1 = new BlogData(getResources().getDrawable(R.drawable.main1), "潮流穿搭1", "简介简介简介", "用户1", true);
-//        BlogData blogData2 = new BlogData(getResources().getDrawable(R.drawable.main2), "潮流穿搭2", "简介简介简介", "用户2", true);
-//        BlogData blogData3 = new BlogData(getResources().getDrawable(R.drawable.main3), "潮流穿搭3", "简介简介简介", "用户3", true);
-//        mBlogDataList.add(blogData1);
-//        mBlogDataList.add(blogData2);
-//        mBlogDataList.add(blogData3);
+
+        BlogData blogData1 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main1).toString(), "潮流穿搭1", "简介简介简介", "用户1", true);
+        BlogData blogData2 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main2).toString(), "潮流穿搭2", "简介简介简介", "用户2", true);
+        BlogData blogData3 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main3).toString(), "潮流穿搭3", "简介简介简介", "用户3", true);
+        mBlogDataList.add(blogData1);
+        mBlogDataList.add(blogData2);
+        mBlogDataList.add(blogData3);
+        mListManager.setObjectList(mBlogDataList);
+
     }
 
 
@@ -115,33 +123,12 @@ public class MainFragment extends Fragment {
 
     }
 
-    public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
-        private int itemSpace;
-        private int itemNum;
-
-        /**** @param itemSpace item间隔 * @param itemNum 每行item的个数 */
-        public RecyclerItemDecoration(int itemSpace, int itemNum) {
-            this.itemSpace = itemSpace;
-            this.itemNum = itemNum;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            outRect.bottom = itemSpace;
-            if (parent.getChildLayoutPosition(view) % itemNum == 0) { // parent.getChildLayoutPosition(view);//获取view的下标
-                outRect.left = 0;
-            } else {
-                outRect.left = itemSpace;
-            }
-        }
-    }
-
-    private String getFileName(){
-        String account ="";
+    private String getFileName() {
+        String account = "";
         account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), Constant.KEY_CURRENT_USER, account);
         return account;
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -153,27 +140,14 @@ public class MainFragment extends Fragment {
             List<BlogData> blogDataList;
             //Fragment隐藏时调用
             blogDataList = mListManager.getObjectList();
-            if(blogDataList != null){
+            if (blogDataList != null) {
                 mBlogDataList.clear();
                 mBlogDataList.addAll(blogDataList);
                 mAdapter.notifyDataSetChanged();
             }
-//            jsonBlogData = (String) SharedPreferencesUtil.get(getContext(), account, Constant.KEY_PUBLISH_BLOG, jsonBlogData);
-//
-//            if (jsonBlogData != null && !jsonBlogData.isEmpty()) {
-//                Gson gson = new GsonBuilder()
-//                        .registerTypeAdapter(Uri.class, new UriDeserializer())
-//                        .create();
-//                blogData = gson.fromJson(jsonBlogData, BlogData.class);
-//
-//                mBlogDataList.add(blogData);
-//                SharedPreferencesUtil.remove(getContext(),account,Constant.KEY_PUBLISH_BLOG);//删除
-//                mAdapter.notifyDataSetChanged();
-//
-//            }
+
         }
     }
-
 
 
     public class UriSerializer implements JsonSerializer<Uri> {

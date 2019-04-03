@@ -33,7 +33,7 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View root = inflater.inflate(R.layout.fragment_mine, container, false);
+        View root = inflater.inflate(R.layout.fragment_collocation, container, false);
 
 
 
