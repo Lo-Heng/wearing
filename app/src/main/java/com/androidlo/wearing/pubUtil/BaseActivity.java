@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidlo.wearing.MainView.MainActivity;
+import com.androidlo.wearing.MainActivity;
 import com.androidlo.wearing.R;
 
 public abstract class BaseActivity extends AppCompatActivity {

@@ -3,14 +3,27 @@ package com.androidlo.wearing.pubUtil;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import com.androidlo.wearing.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SharedPreferencesUtil {
 
@@ -38,7 +51,7 @@ public class SharedPreferencesUtil {
         editor.apply();
     }
 
-    public static Object get(Context context,String fileName ,String key, Object defaultObject) {
+    public static Object get(Context context, String fileName, String key, Object defaultObject) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {
@@ -55,20 +68,73 @@ public class SharedPreferencesUtil {
         return null;
     }
 
-    public static boolean contains(Context context, String fileName,String key) {
+    public static boolean contains(Context context, String fileName, String key) {
         SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
     }
 
-    public static void remove(Context context,String fileName ,String key){
-        SharedPreferences sp = context.getSharedPreferences(fileName,Context.MODE_PRIVATE);
+    public static void remove(Context context, String fileName, String key) {
+        SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         editor.apply();
     }
 
+    /**
+     * 保存List
+     *
+     * @param tag
+     * @param datalist
+     */
+    public static <T> void setDataList(Context context, String fileName, String tag, List<T> datalist) {
+        SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        if (null == datalist || datalist.size() <= 0)
+            return;
 
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(datalist);
 
+        editor.clear();
+
+        editor.putString(tag, strJson);
+        editor.commit();
+
+    }
+
+    /**
+     * 获取List
+     *
+     * @param tag
+     * @return
+     */
+    public static <T> List<T> getDataList(Context context, String fileName, String tag) {
+        SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        List<T> datalist = new ArrayList<T>();
+        String strJson = sp.getString(tag, null);
+        if (null == strJson) {
+            return datalist;
+        }
+        Gson gson = new Gson();
+        datalist = gson.fromJson(strJson, new TypeToken<List<T>>() {
+        }.getType());
+        return datalist;
+    }
+    public class UriSerializer implements JsonSerializer<Uri> {
+        public JsonElement serialize(Uri src, Type typeOfSrc,
+                                     JsonSerializationContext context) {
+            return new JsonPrimitive(src.toString());
+        }
+    }
+
+    public class UriDeserializer implements JsonDeserializer<Uri> {
+        @Override
+        public Uri deserialize(final JsonElement src, final Type srcType,
+                               final JsonDeserializationContext context) throws JsonParseException {
+            return Uri.parse(src.getAsString());
+        }
+    }
 
 }

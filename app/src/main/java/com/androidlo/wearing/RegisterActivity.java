@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.pubUtil.BaseActivity;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
 
@@ -93,8 +94,8 @@ public class RegisterActivity extends BaseActivity {
             return false;
         }else if(confirmPwd.equals(pwd)){
             //存入当前账户
-            SharedPreferencesUtil.save(this,getString(R.string.app_name),"currentAccount",acc);
-            SharedPreferencesUtil.save(this,acc, acc, pwd);
+            SharedPreferencesUtil.save(this,getString(R.string.app_name),Constant.KEY_CURRENT_USER,acc);
+            SharedPreferencesUtil.save(this,getString(R.string.app_name), acc, pwd);
             return true;
         }else{
             showSnack("错误，原因不明，请反馈");

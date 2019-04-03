@@ -1,4 +1,4 @@
-package com.androidlo.wearing.MainView.View;
+package com.androidlo.wearing.Fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.androidlo.wearing.MainView.MyAdapter;
-import com.androidlo.wearing.MainView.model.BlogData;
+import com.androidlo.wearing.model.MyAdapter;
+import com.androidlo.wearing.model.BlogData;
 import com.androidlo.wearing.R;
 
 import java.util.ArrayList;

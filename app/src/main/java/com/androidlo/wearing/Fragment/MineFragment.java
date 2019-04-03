@@ -1,4 +1,4 @@
-package com.androidlo.wearing.MainView.View;
+package com.androidlo.wearing.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,15 +10,13 @@ import android.view.ViewGroup;
 
 import com.androidlo.wearing.R;
 
-public class MessageFragment extends Fragment {
+public class MineFragment extends Fragment {
 
+    public static MineFragment sMineFragment;
 
-
-    public static MessageFragment sMineFragment;
-
-    public static MessageFragment getInstance(){
+    public static MineFragment getInstance(){
         if(sMineFragment == null){
-            sMineFragment = new MessageFragment();
+            sMineFragment = new MineFragment();
         }
         return sMineFragment;
     }

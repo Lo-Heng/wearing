@@ -1,4 +1,4 @@
-package com.androidlo.wearing.MainView.View;
+package com.androidlo.wearing.Fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.androidlo.wearing.MainView.MyAdapter;
-import com.androidlo.wearing.MainView.model.BlogData;
-import com.androidlo.wearing.MainView.model.Constant;
+import com.androidlo.wearing.model.MyAdapter;
+import com.androidlo.wearing.model.BlogData;
+import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.R;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
 import com.google.gson.Gson;
@@ -26,6 +26,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -48,6 +51,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Nullable
@@ -63,6 +68,17 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecyclerItemDecoration(6, 2));
+
+
+        String account = "", jsonBlogData = "";
+        List<BlogData> blogDataList;
+        //Fragment隐藏时调用
+        blogDataList = getObjectList();
+        if(blogDataList != null){
+            mBlogDataList.clear();
+            mBlogDataList.addAll(blogDataList);
+            mAdapter.notifyDataSetChanged();
+        }
         mAdapter.setItemEvent(new MyAdapter.ItemEvent() {
             @Override
             public void onItemClick(int position) {
@@ -91,6 +107,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        //Fragment显示时调用    
 
 
     }
@@ -117,31 +134,72 @@ public class MainFragment extends Fragment {
         }
     }
 
+    private String getFileName(){
+        String account ="";
+        account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), Constant.KEY_CURRENT_USER, account);
+        return account;
+    }
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            //Fragment隐藏时调用    
+
         } else {
             //Fragment显示时调用    
             String account = "", jsonBlogData = "";
-            BlogData blogData;
-            account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), "currentAccount", account);
-
-            jsonBlogData = (String) SharedPreferencesUtil.get(getContext(), account, Constant.KEY_PUBLISH_BLOG, jsonBlogData);
-
-            if (jsonBlogData != null && !jsonBlogData.isEmpty()) {
-                Gson gson = new GsonBuilder()
-                        .registerTypeAdapter(Uri.class, new UriDeserializer())
-                        .create();
-                blogData = gson.fromJson(jsonBlogData, BlogData.class);
-
-                mBlogDataList.add(blogData);
-                SharedPreferencesUtil.remove(getContext(),account,Constant.KEY_PUBLISH_BLOG);//删除
+            List<BlogData> blogDataList;
+            //Fragment隐藏时调用
+            blogDataList = getObjectList();
+            if(blogDataList != null){
+                mBlogDataList.clear();
+                mBlogDataList.addAll(blogDataList);
                 mAdapter.notifyDataSetChanged();
+            }
+//            jsonBlogData = (String) SharedPreferencesUtil.get(getContext(), account, Constant.KEY_PUBLISH_BLOG, jsonBlogData);
+//
+//            if (jsonBlogData != null && !jsonBlogData.isEmpty()) {
+//                Gson gson = new GsonBuilder()
+//                        .registerTypeAdapter(Uri.class, new UriDeserializer())
+//                        .create();
+//                blogData = gson.fromJson(jsonBlogData, BlogData.class);
+//
+//                mBlogDataList.add(blogData);
+//                SharedPreferencesUtil.remove(getContext(),account,Constant.KEY_PUBLISH_BLOG);//删除
+//                mAdapter.notifyDataSetChanged();
+//
+//            }
+        }
+    }
+    private String  getList() {
+        return SharedPreferencesUtil.getDataList(getContext(), getFileName(), Constant.KEY_MAIN_FRAGMENT_LIST).toString().trim();
+    }
+    //定制json解析器
+    private List<BlogData> getObjectList( ) {
+        String jsonString = getList();
+        List<BlogData> blogDataList = new ArrayList<>();
+        if (jsonString != null && jsonString.isEmpty()) {
+            return null;
+        } else {
+            try {
+                JSONArray jsonArray = new JSONArray(jsonString);
+                for(int i=0;i<jsonArray.length();i++){
+                    BlogData blogData = new BlogData();
+                    blogData.setAuthor(jsonArray.getJSONObject(i).getString("author"));
+                    blogData.setCollect(jsonArray.getJSONObject(i).getBoolean("isCollect"));
+                    blogData.setSummarize(jsonArray.getJSONObject(i).getString("summarize"));
+                    blogData.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                    String uriStr = jsonArray.getJSONObject(i).getString("uri");
 
+                    blogData.setUri(uriStr);
+
+                    blogDataList.add(blogData);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
+
+        return blogDataList;
     }
 
     public class UriSerializer implements JsonSerializer<Uri> {
@@ -158,4 +216,6 @@ public class MainFragment extends Fragment {
             return Uri.parse(src.getAsString());
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.androidlo.wearing.MainView;
+package com.androidlo.wearing;
 
 
 import android.content.res.ColorStateList;
@@ -18,11 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.androidlo.wearing.MainView.View.MineFragment;
-import com.androidlo.wearing.MainView.View.PublishFragment;
-import com.androidlo.wearing.MainView.View.CollocationFragment;
-import com.androidlo.wearing.MainView.View.MainFragment;
-import com.androidlo.wearing.R;
+import com.androidlo.wearing.Fragment.CollocationFragment;
+import com.androidlo.wearing.Fragment.MainFragment;
+import com.androidlo.wearing.Fragment.MineFragment;
+import com.androidlo.wearing.Fragment.PublishFragment;
 import com.androidlo.wearing.pubUtil.BaseActivity;
 import com.androidlo.wearing.pubUtil.BottomNavigationViewHelper;
 
@@ -89,11 +88,11 @@ public class MainActivity extends BaseActivity   {
         //键盘弹出不挤压
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-//        mTextMessage = findViewById(R.id.message);
-//        mFrameLayout = findViewById(R.id.fl_container);
         mNavigation = findViewById(R.id.navigation);
         mfl_container = findViewById(R.id.f_container);
 
+        //标题默认首页
+        setCustomTitle(getString(R.string.title_home));
         //初始化navigation底边栏
         initNavigation();
 

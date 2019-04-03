@@ -1,12 +1,11 @@
-package com.androidlo.wearing.MainView.model;
+package com.androidlo.wearing.model;
 
 
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 public class BlogData {
     //图片资源文件
-    private Uri uri;
+    private String uri;
     //标题
     private String title;
     //摘要
@@ -17,7 +16,10 @@ public class BlogData {
     private boolean isCollect;
 
 
-    public BlogData(Uri uri, String title, String summarize, String author, boolean isCollect){
+    public BlogData(){
+
+    }
+    public BlogData(String uri, String title, String summarize, String author, boolean isCollect){
         this.title = title;
         this.summarize = summarize;
         this.uri = uri;
@@ -41,12 +43,12 @@ public class BlogData {
         this.summarize = summarize;
     }
 
-    public Uri getUri() {
-        return uri;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
-    public void setUri(Uri uri) {
-        this.uri = uri;
+    public String getUri() {
+        return uri;
     }
 
     public String getAuthor() {
@@ -63,5 +65,13 @@ public class BlogData {
 
     public void setCollect(boolean collect) {
         isCollect = collect;
+    }
+
+    public String getDecodeUriString(){
+        String decodeUri ;
+        decodeUri = uri.replace("x0027x","/");
+        decodeUri = decodeUri.replace("x160x"," ");
+        decodeUri = decodeUri.replace("x003ax",":");
+        return decodeUri;
     }
 }

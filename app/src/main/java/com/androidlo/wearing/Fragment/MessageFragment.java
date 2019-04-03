@@ -1,29 +1,24 @@
-package com.androidlo.wearing.MainView.View;
+package com.androidlo.wearing.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.androidlo.wearing.MainView.MyAdapter;
-import com.androidlo.wearing.MainView.model.BlogData;
 import com.androidlo.wearing.R;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MessageFragment extends Fragment {
 
-public class MineFragment extends Fragment {
 
-    public static MineFragment sMineFragment;
 
-    public static MineFragment getInstance(){
+    public static MessageFragment sMineFragment;
+
+    public static MessageFragment getInstance(){
         if(sMineFragment == null){
-            sMineFragment = new MineFragment();
+            sMineFragment = new MessageFragment();
         }
         return sMineFragment;
     }

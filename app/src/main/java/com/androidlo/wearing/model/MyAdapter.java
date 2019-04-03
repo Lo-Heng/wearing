@@ -1,9 +1,6 @@
-package com.androidlo.wearing.MainView;
+package com.androidlo.wearing.model;
 
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidlo.wearing.MainView.model.BlogData;
 import com.androidlo.wearing.R;
 
 import java.util.List;
@@ -55,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ItemViewHolder itemViewHolder = ((ItemViewHolder) holder);
 
         itemViewHolder.setClick(mItemEvent, position);//设置某一条item的点击事件
-        itemViewHolder.bind(mDataList.get(position),position);//显示
+        itemViewHolder.bind(mDataList.get(position), position);//显示
 
     }
 
@@ -77,10 +73,8 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
 
-        private TextView mTvTitle,mTvSummarize,mTvAuthor;
-        private ImageView mIvIntroduce,mIvHeart;
-
-
+        private TextView mTvTitle, mTvSummarize, mTvAuthor;
+        private ImageView mIvIntroduce, mIvHeart;
 
 
         public ItemViewHolder(View itemView) {
@@ -99,15 +93,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         /**
          * 显示绑定的对应数据
-
          */
         public void bind(final BlogData blogData, final int position) {
             //
 //            mTvTitle.setText(blogData.getTitle());
             mTvSummarize.setText(blogData.getSummarize());
 
+            Uri uri = Uri.parse(blogData.getDecodeUriString());
 
-                mIvIntroduce.setImageURI(blogData.getUri());
+
+            mIvIntroduce.setImageURI(uri);
 
             mIvHeart.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,9 +111,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
-            if(blogData.isCollect()){
+            if (blogData.isCollect()) {
                 mIvHeart.setImageResource(R.drawable.heart_fill);
-            }else{
+            } else {
                 mIvHeart.setImageResource(R.drawable.heart);
             }
             mTvAuthor.setText(blogData.getAuthor());

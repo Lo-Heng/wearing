@@ -1,42 +1,44 @@
-package com.androidlo.wearing.MainView.View;
+package com.androidlo.wearing.Fragment;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.androidlo.wearing.MainView.model.BlogData;
-import com.androidlo.wearing.MainView.model.Constant;
+import com.androidlo.wearing.model.BlogData;
+import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.R;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import java.lang.reflect.Field;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -103,22 +105,44 @@ public class PublishFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String title = "", summarize = "", account = "";
-
+                List<BlogData> blogDataList;
                 BlogData blogData;
                 title = mBtnPublish.getText().toString();
                 summarize = mEtPublishSummarize.getText().toString();
                 account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), "currentAccount", account);
                 Drawable.ConstantState drawable = mIvPublishPhoto.getDrawable().getConstantState();
-                if (!title.isEmpty() && !summarize.isEmpty() && !getResources().getDrawable(R.drawable.plus_bg).getConstantState().equals(drawable) ) {
-                    blogData = new BlogData(mUri, title, summarize, account, false);
-//                    Gson gson = new Gson();
-                    Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(Uri.class, new UriSerializer())
-                            .create();
-                    SharedPreferencesUtil.save(getContext(), account, Constant.KEY_PUBLISH_BLOG, gson.toJson(blogData));
+                if (!title.isEmpty() && !summarize.isEmpty() && !getResources().getDrawable(R.drawable.plus_bg).getConstantState().equals(drawable)) {
+                    String uriStr = mUri.toString();
+                    uriStr = uriStr.replace("/","x0027x");
+                    uriStr = uriStr.replace(" ","x160x");
+                    uriStr = uriStr.replace(":","x003ax");
+                    blogData = new BlogData(uriStr, title, summarize, getFileName(), false);
+                    blogDataList = getObjectList();
+                    blogDataList.add(blogData);
+                    SharedPreferencesUtil.setDataList(getContext(),getFileName(),Constant.KEY_MAIN_FRAGMENT_LIST,blogDataList);
+
+//                    Gson gson = new GsonBuilder()
+//                            .registerTypeAdapter(Uri.class, new UriSerializer())
+//                            .create();
+
+//                    SharedPreferencesUtil.save(getContext(), account, Constant.KEY_PUBLISH_BLOG, gson.toJson(blogData));
+
+
                 }
+
             }
         });
+    }
+
+    private String getFileName() {
+        String account = "";
+        account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), Constant.KEY_CURRENT_USER, account);
+        return account;
+    }
+
+    private String  getList() {
+
+        return SharedPreferencesUtil.getDataList(getContext(), getFileName(), Constant.KEY_MAIN_FRAGMENT_LIST).toString().trim();
     }
 
     /**
@@ -128,6 +152,37 @@ public class PublishFragment extends Fragment {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, Constant.ALBUM_REQUEST_CODE);
+    }
+
+    //定制json解析器
+    private List<BlogData> getObjectList( ) {
+        String jsonString = getList();
+        List<BlogData> blogDataList = new ArrayList<>();
+        if (jsonString != null && jsonString.isEmpty()) {
+            return null;
+        } else {
+            try {
+                JSONArray jsonArray = new JSONArray(jsonString);
+                for(int i=0;i<jsonArray.length();i++){
+                    BlogData blogData = new BlogData();
+                    blogData.setAuthor(jsonArray.getJSONObject(i).getString("author"));
+                    blogData.setCollect(jsonArray.getJSONObject(i).getBoolean("isCollect"));
+                    blogData.setSummarize(jsonArray.getJSONObject(i).getString("summarize"));
+                    blogData.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                    String uriStr = jsonArray.getJSONObject(i).getString("uri");
+//                    uriStr = uriStr.replace("x0027x","/");
+//                    uriStr = uriStr.replace("x160x"," ");
+//                    uriStr = uriStr.replace("x003ax",":");
+                    blogData.setUri(uriStr);
+
+                    blogDataList.add(blogData);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return blogDataList;
     }
 
     @Override
@@ -149,6 +204,14 @@ public class PublishFragment extends Fragment {
         super.onAttach(context);
     }
 
+
+    public class UriDeserializer implements JsonDeserializer<Uri> {
+        @Override
+        public Uri deserialize(final JsonElement src, final Type srcType,
+                               final JsonDeserializationContext context) throws JsonParseException {
+            return Uri.parse(src.getAsString());
+        }
+    }
     //解析器
     public class UriSerializer implements JsonSerializer<Uri> {
         public JsonElement serialize(Uri src, Type typeOfSrc,

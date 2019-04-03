@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.pubUtil.BaseActivity;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
 
@@ -88,12 +89,12 @@ public class LoginActivity extends BaseActivity {
             showSnack("输入不能为空");
         } else if (acc.isEmpty()) {
             showSnack("输入不能为空");
-        } else if (!SharedPreferencesUtil.contains(this, acc,acc)) {
+        } else if (!SharedPreferencesUtil.contains(this, getString(R.string.app_name),acc)) {
             showSnack("用户不存在");
         } else {
             String savedPwd = "";
-            savedPwd = (String) SharedPreferencesUtil.get(this, acc,acc, savedPwd);
-            SharedPreferencesUtil.save(this,getString(R.string.app_name),"currentAccount",acc);
+            savedPwd = (String) SharedPreferencesUtil.get(this,getString(R.string.app_name) ,acc, savedPwd);
+            SharedPreferencesUtil.save(this,getString(R.string.app_name),Constant.KEY_CURRENT_USER,acc);
             if (savedPwd != null && savedPwd.equals(pwd)) {
                 accFlag = true;
             }else{
