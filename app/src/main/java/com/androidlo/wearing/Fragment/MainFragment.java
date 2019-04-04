@@ -69,22 +69,22 @@ public class MainFragment extends Fragment {
         mBlogDataList = new ArrayList<>();
 
         mListManager = new ListManager(getContext());
-
+        initData();
         mAdapter = new MyAdapter(mBlogDataList);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecyclerItemDecoration(6, 2));
-        initData();
 
-        String account = "", jsonBlogData = "";
+
+
         List<BlogData> blogDataList;
         //Fragment隐藏时调用
-        blogDataList = mListManager.getObjectList();
-        if (blogDataList != null) {
-            mBlogDataList.clear();
-            mBlogDataList.addAll(blogDataList);
-            mAdapter.notifyDataSetChanged();
-        }
+//        blogDataList = mListManager.getObjectList();
+//        if (blogDataList != null) {
+//            mBlogDataList.clear();
+//            mBlogDataList.addAll(blogDataList);
+//            mAdapter.notifyDataSetChanged();
+//        }
         mAdapter.setItemEvent(new MyAdapter.ItemEvent() {
             @Override
             public void onItemClick(int position) {
@@ -103,15 +103,20 @@ public class MainFragment extends Fragment {
     }
 
     private void initData() {
+        List<BlogData> blogDataList = new ArrayList<>();
+        BlogData blogData1 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.cap1).toString(), "潮流穿搭1", "简介简介简介", "用户1", true);
+        BlogData blogData2 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.cap1).toString(), "潮流穿搭2", "简介简介简介", "用户2", true);
+        BlogData blogData3 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.cap1).toString(), "潮流穿搭3", "简介简介简介", "用户3", true);
+        blogDataList.add(blogData1);
+        blogDataList.add(blogData2);
+        blogDataList.add(blogData3);
 
-        BlogData blogData1 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main1).toString(), "潮流穿搭1", "简介简介简介", "用户1", true);
-        BlogData blogData2 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main2).toString(), "潮流穿搭2", "简介简介简介", "用户2", true);
-        BlogData blogData3 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main3).toString(), "潮流穿搭3", "简介简介简介", "用户3", true);
-        mBlogDataList.add(blogData1);
-        mBlogDataList.add(blogData2);
-        mBlogDataList.add(blogData3);
+        mBlogDataList = mListManager.getObjectList();
+        if(!mBlogDataList.isEmpty()) {
+            mBlogDataList.addAll(blogDataList);
+
+        }
         mListManager.setObjectList(mBlogDataList);
-
     }
 
 
