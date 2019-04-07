@@ -54,7 +54,9 @@ public class MessageFragment extends Fragment {
 
     private void initData() {
         mMessageList = new ArrayList<>();
-        mMessageList.add(new Message("系统","您好，恭喜您成功注册注册"));
+        mMessageList.add(new Message("系统","您好，恭喜您成功注册"));
+        mMessageList.add(new Message("用户1","您好，请问这套搭配可以去哪里买？"));
+        mMessageList.add(new Message("系统","系统消息！已调到震动模式！"));
     }
 
     @Override

@@ -13,39 +13,59 @@
     android:padding="10dp"
     android:src="@drawable/lady"
     android:adjustViewBounds="true" />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:orientation="vertical"
+        android:background="@drawable/input_bg"
+        >
+        <ImageView
+            android:id="@+id/iv_cap"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/cap1"
+            android:padding="5dp"
+            />
+        <!--分割线-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/Divider"/>
+        <ImageView
+            android:id="@+id/iv_shirt"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/shirt1"
+            android:padding="5dp"
 
-    <ImageView
-        android:id="@+id/iv_cap"
-        android:layout_width="300dp"
-        android:layout_height="86dp"
-        android:paddingRight="40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/cap2" />
+            />
+        <!--分割线-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/Divider"/>
+        <ImageView
+            android:id="@+id/iv_trousers"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/trousers1"
+            android:padding="5dp"
+            />
+        <!--分割线-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/Divider"/>
+        <ImageView
+            android:id="@+id/iv_shoes"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/shoes1"
+            android:padding="5dp"
 
-    <ImageView
-        android:id="@+id/iv_trousers"
-        android:layout_width="300dp"
-        android:layout_height="245dp"
-        android:layout_marginTop="305dp"
-        android:paddingRight="121dp"
-        android:paddingLeft="80dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/trousers1" />
-    <ImageView
-        android:id="@+id/iv_shirt"
-        android:layout_width="300dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="160dp"
-        android:paddingRight="40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/shirt1" />
-    <ImageView
-        android:id="@+id/iv_shoes"
-        android:layout_gravity="bottom"
-        android:layout_width="300dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="10dp"
-        android:paddingRight="40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/shoes1" />
+            />
+
+    </LinearLayout>
 </FrameLayout>

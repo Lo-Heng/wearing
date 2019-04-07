@@ -30,6 +30,9 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MyCollectActivity" />
+        <activity android:name=".MySubscribeActivity" />
+        <activity android:name=".MyPublishActivity" />
+        <activity android:name=".DetailActivity" />
     </application>
 
 </manifest>

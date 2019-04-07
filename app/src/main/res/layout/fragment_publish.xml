@@ -42,7 +42,8 @@
                 android:maxLines="2"
                 android:gravity="bottom"
                 android:hint="标题"
-                android:background="@drawable/input_bg"/>
+                android:background="@drawable/input_bg"
+                android:padding="10dp"/>
 
             <EditText
                 android:id="@+id/et_publish_summarize"
@@ -52,6 +53,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="2"
                 android:minLines="3"
+                android:padding="10dp"
                 android:background="@drawable/input_bg"
                 android:hint="摘要"
                 android:gravity="bottom" />
@@ -62,7 +64,8 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/plus_bg"
+                android:scaleType="center"
+                  android:src="@drawable/plus_bg"
                 android:background="@drawable/input_bg"
                 android:layout_weight="3" />
             <LinearLayout

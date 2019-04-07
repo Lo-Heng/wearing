@@ -26,8 +26,8 @@ public class ListManager {
         return account;
     }
     //定制json解析器
-    public List<BlogData> getObjectList() {
-        String jsonString = SharedPreferencesUtil.getDataList(context, getFileName(), Constant.KEY_MAIN_FRAGMENT_LIST).toString().trim();
+    public List<BlogData> getObjectList(String key) {
+        String jsonString = SharedPreferencesUtil.getDataList(context, getFileName(), key).toString().trim();
         List<BlogData> blogDataList = new ArrayList<>();
         if (jsonString != null && jsonString.isEmpty()) {
             return null;
@@ -40,6 +40,7 @@ public class ListManager {
                     blogData.setCollect(jsonArray.getJSONObject(i).getBoolean("isCollect"));
                     blogData.setSummarize(jsonArray.getJSONObject(i).getString("summarize"));
                     blogData.setTitle(jsonArray.getJSONObject(i).getString("title"));
+                    blogData.setMyPublish(jsonArray.getJSONObject(i).getBoolean("isMyPublish"));
                     String uriStr = jsonArray.getJSONObject(i).getString("uri");
                     blogData.setUri(uriStr);
                     blogDataList.add(blogData);
@@ -55,7 +56,7 @@ public class ListManager {
     public List<BlogData> getCollectList(){
         List<BlogData> blogDataList = new ArrayList<>();
         List<BlogData> collectDataList = new ArrayList<>();
-        blogDataList.addAll(getObjectList());
+        blogDataList.addAll(getObjectList(Constant.KEY_MAIN_FRAGMENT_LIST));
 
         for(int i=0;i<blogDataList.size();i++){
             if(blogDataList.get(i).isCollect()){
@@ -64,8 +65,21 @@ public class ListManager {
         }
         return collectDataList;
     }
+    //获取我的收藏
+    public List<BlogData> getPublishList(){
+        List<BlogData> blogDataList = new ArrayList<>();
+        List<BlogData> publishList = new ArrayList<>();
+        blogDataList.addAll(getObjectList(Constant.KEY_MAIN_FRAGMENT_LIST));
 
-    public void setObjectList(List<BlogData> blogDataList) {
+        for(int i=0;i<blogDataList.size();i++){
+            if(blogDataList.get(i).isMyPublish()){
+                publishList.add(blogDataList.get(i));
+            }
+        }
+        return publishList;
+    }
+
+    public void setObjectList(List<BlogData> blogDataList,String key) {
         for(BlogData blogData:blogDataList){
             if(blogData.getUri().contains("/") || blogData.getUri().contains(" ") ||blogData.getUri().contains(":") ){
                 String uriStr = blogData.getUri();
@@ -75,7 +89,7 @@ public class ListManager {
                 blogData.setUri(uriStr);
             }
         }
-        SharedPreferencesUtil.setDataList(context,getFileName(),Constant.KEY_MAIN_FRAGMENT_LIST,blogDataList);
+        SharedPreferencesUtil.setDataList(context,getFileName(),key,blogDataList);
 
     }
 }

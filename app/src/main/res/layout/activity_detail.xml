@@ -1,0 +1,50 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/ll_contain_publish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:gravity="bottom"
+            android:textSize="20dp"
+            android:text="hello"
+            android:textColor="@color/TextPrimary"
+            android:padding="10dp"/>
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="@color/Divider"/>
+        <TextView
+            android:id="@+id/tv_summarize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+
+            android:padding="10dp"
+            android:textColor="@color/TextLight"
+            android:text="hello"
+            android:gravity="top" />
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+
+        </LinearLayout>
+    </ScrollView>

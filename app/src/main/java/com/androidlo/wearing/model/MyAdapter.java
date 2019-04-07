@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidlo.wearing.R;
@@ -75,6 +76,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private TextView mTvTitle, mTvSummarize, mTvAuthor;
         private ImageView mIvIntroduce, mIvHeart;
+        private final LinearLayout mLlRoot;
 
 
         public ItemViewHolder(View itemView) {
@@ -82,13 +84,18 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             mTvTitle = itemView.findViewById(R.id.tv_title);
             mIvIntroduce = itemView.findViewById(R.id.iv_introduce);
-            mTvSummarize = itemView.findViewById(R.id.tv_summarize);
             mTvAuthor = itemView.findViewById(R.id.tv_author);
             mIvHeart = itemView.findViewById(R.id.iv_heart);
+            mLlRoot = itemView.findViewById(R.id.ll_root);
         }
 
         public void setClick(final MyAdapter.ItemEvent mItemEvent, final int position) {
-
+            mLlRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mItemEvent.onItemClick(position);
+                }
+            });
         }
 
         /**
@@ -96,11 +103,8 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
          */
         public void bind(final BlogData blogData, final int position) {
             //
-//            mTvTitle.setText(blogData.getTitle());
-            mTvSummarize.setText(blogData.getSummarize());
-
-
-
+            mTvTitle.setText(blogData.getTitle());
+//            mTvSummarize.setText(blogData.getSummarize());
 
             Uri uri = Uri.parse(blogData.getDecodeUriString());
 

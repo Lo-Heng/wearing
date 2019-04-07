@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:orientation="horizontal"
+    android:layout_margin="20dp"
     >
 
-    <TextView
-        android:id="@+id/tv_name"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:layout_alignTop="@+id/ll_content"
+        android:background="@drawable/circle_bg" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textColor="@color/TextPrimary"
+        android:gravity="center"
+        android:layout_alignTop="@+id/ll_content"
 
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:background="@drawable/circle_bg"
         android:text="系统"/>
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#55FFFFFF">
+        android:layout_toRightOf="@+id/tv_name"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/card_bg">
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minLines="2"
             android:padding="10dp"
-            android:text="hello world"/>
+            android:textColor="@color/TextPrimary"
+            android:text="hello wo"/>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

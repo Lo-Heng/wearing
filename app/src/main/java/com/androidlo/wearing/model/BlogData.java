@@ -14,17 +14,27 @@ public class BlogData {
     private String author;
     //是否收藏
     private boolean isCollect;
-
+    //是否本人发出
+    private boolean isMyPublish;
 
     public BlogData(){
 
     }
-    public BlogData(String uri, String title, String summarize, String author, boolean isCollect){
+    public BlogData(String uri, String title, String summarize, String author, boolean isCollect,boolean isMyPublish){
         this.title = title;
         this.summarize = summarize;
         this.uri = uri;
         this.author = author;
         this.isCollect = isCollect;
+        this.isMyPublish = isMyPublish;
+    }
+
+    public boolean isMyPublish() {
+        return isMyPublish;
+    }
+
+    public void setMyPublish(boolean myPublish) {
+        isMyPublish = myPublish;
     }
 
     public String getTitle() {

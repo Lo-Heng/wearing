@@ -23,12 +23,15 @@ import com.androidlo.wearing.Fragment.MainFragment;
 import com.androidlo.wearing.Fragment.MessageFragment;
 import com.androidlo.wearing.Fragment.MineFragment;
 import com.androidlo.wearing.Fragment.PublishFragment;
+import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.pubUtil.BaseActivity;
 import com.androidlo.wearing.pubUtil.BottomNavigationViewHelper;
+import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
+import com.androidlo.wearing.view.IMainActivityView;
 
 import static android.widget.ListPopupWindow.MATCH_PARENT;
 
-public class MainActivity extends BaseActivity   {
+public class MainActivity extends BaseActivity  implements IMainActivityView {
 
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
@@ -76,11 +79,6 @@ public class MainActivity extends BaseActivity   {
             return false;
         }
     };
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

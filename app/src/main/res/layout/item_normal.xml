@@ -10,24 +10,26 @@
 
     <ImageView
         android:id="@+id/iv_introduce"
-        android:layout_width="wrap_content"
-        android:layout_height="190dp" />
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_title"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:maxLines="1"-->
-    <!--android:text="第一行标题"-->
-    <!--android:textColor="@color/TextPrimary" />-->
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:scaleType="fitCenter"
+        />
 
     <TextView
-        android:id="@+id/tv_summarize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minLines="2"
-        android:text="内容描述"
-        android:textColor="@color/TextPrimary" />
+    android:id="@+id/tv_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minLines="2"
+    android:text="第一行标题"
+    android:textColor="@color/TextPrimary" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_summarize"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:minLines="2"-->
+        <!--android:text="内容描述"-->
+        <!--android:textColor="@color/TextPrimary" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,8 +45,8 @@
             android:textColor="@color/TextLight" />
         <ImageView
             android:id="@+id/iv_heart"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/heart"/>
     </RelativeLayout>

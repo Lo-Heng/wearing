@@ -19,12 +19,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.androidlo.wearing.MainActivity;
 import com.androidlo.wearing.model.BlogData;
 import com.androidlo.wearing.model.Constant;
 import com.androidlo.wearing.R;
 import com.androidlo.wearing.model.ListManager;
 import com.androidlo.wearing.pubUtil.SharedPreferencesUtil;
 import com.androidlo.wearing.pubUtil.UriUtils;
+import com.androidlo.wearing.view.IMainActivityView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -53,6 +55,7 @@ public class PublishFragment extends Fragment {
     private EditText mEtPublishSummarize;
     private ImageView mIvPublishPhoto;
     private Uri mUri;
+
     private ListManager mListManager;
 
     public static PublishFragment getInstance() {
@@ -109,11 +112,10 @@ public class PublishFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String title = "", summarize = "", account = "";
-                List<BlogData> blogDataList;
+                List<BlogData> blogDataList,publishList;
                 BlogData blogData;
-                title = mBtnPublish.getText().toString();
+                title = mEtPublishTitle.getText().toString();
                 summarize = mEtPublishSummarize.getText().toString();
-                account = (String) SharedPreferencesUtil.get(getContext(), getString(R.string.app_name), "currentAccount", account);
                 Drawable.ConstantState drawable = mIvPublishPhoto.getDrawable().getConstantState();
                 if (!title.isEmpty() && !summarize.isEmpty() && !getResources().getDrawable(R.drawable.plus_bg).getConstantState().equals(drawable)) {
                     String uriStr;
@@ -122,11 +124,18 @@ public class PublishFragment extends Fragment {
                     uriStr = uriStr.replace("/","x0027x");
                     uriStr = uriStr.replace(" ","x160x");
                     uriStr = uriStr.replace(":","x003ax");
-                    blogData = new BlogData(uriStr, title, summarize, getFileName(), false);
-                    blogDataList = mListManager.getObjectList();
+                    blogData = new BlogData(uriStr, title, summarize, getFileName(), false,true);
+                    blogDataList = mListManager.getObjectList(Constant.KEY_MAIN_FRAGMENT_LIST);
                     blogDataList.add(blogData);
-
-                    SharedPreferencesUtil.setDataList(getContext(),getFileName(),Constant.KEY_MAIN_FRAGMENT_LIST,blogDataList);
+                    mListManager.setObjectList(blogDataList,Constant.KEY_MAIN_FRAGMENT_LIST);
+                    ((MainActivity)getActivity()).showToast("发布成功");
+//                    publishList = mListManager.getObjectList(Constant.KEY_MY_PUBLISH_LIST);
+//                    if(publishList.isEmpty()){
+//                        publishList = new ArrayList<>();
+//                    }
+//                    publishList.add(blogData);
+//                    mListManager.setObjectList(publishList,Constant.KEY_MY_PUBLISH_LIST);
+//                    SharedPreferencesUtil.setDataList(getContext(),getFileName(),Constant.KEY_MAIN_FRAGMENT_LIST,blogDataList);
 
 //                    Gson gson = new GsonBuilder()
 //                            .registerTypeAdapter(Uri.class, new UriSerializer())

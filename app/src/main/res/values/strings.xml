@@ -5,6 +5,7 @@
     <string name="title_notifications">发布</string>
     <string name="title_mine">我的</string>
     <string name="title_activity_login">登录</string>
+
     <string name="title_my_collect">我的收藏</string>
     <string name="title_my_subscribe">我的关注</string>
     <string name="title_my_publish">我的发布</string>
@@ -30,4 +31,6 @@
     <string name="login">登录</string>
     <string name="title_collocation">穿搭</string>
     <string name="title_message">消息</string>
+    <string name="article">不管你现在是否有在上班，你都应该有一套比较正式的衣服，在你需要的时候，穿上它，会给你带来自信，也会让你有足够的底气和气场。很多女生觉得通勤风的衣服就是西装套装，西装配裤子或裙子，我想，你的这种搭配是90年代最流行的了，如果你不想走复古风，那不如试一下改变你的想法。通勤风穿搭也可以是半裙+毛衣T恤，裙子可以选择米色、灰色等，给人一种正式又高级的感觉，上衣也可选择接近的颜色，这样搭配，整个人看着会很舒服、利索，在通勤的同时，保持了女性该有的优雅。</string>
+    <string name="title">通勤风</string>
 </resources>

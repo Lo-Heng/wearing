@@ -6,9 +6,11 @@ package com.androidlo.wearing.model;
 
 public class Constant {
     //发博客储存标记
-    public static final String KEY_PUBLISH_BLOG = "singleblog";
+    public static final String KEY_MY_SIGN = "my_sign";
     //取首页推荐列表
     public static final String KEY_MAIN_FRAGMENT_LIST = "main_list";
+    //存取我的发布列表
+    public static final String KEY_MY_PUBLISH_LIST = "publish_list";
     //当前用户key
     public static final String KEY_CURRENT_USER = "current_account";
 
