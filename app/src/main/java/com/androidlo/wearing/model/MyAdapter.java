@@ -106,7 +106,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTvTitle.setText(blogData.getTitle());
 //            mTvSummarize.setText(blogData.getSummarize());
 
-            Uri uri = Uri.parse(blogData.getDecodeUriString());
+            Uri uri = Uri.parse(BlogData.getDecodeString(blogData.getUri()));
 
 
             mIvIntroduce.setImageURI(uri);

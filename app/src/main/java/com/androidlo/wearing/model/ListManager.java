@@ -88,6 +88,15 @@ public class ListManager {
                 uriStr = uriStr.replace(":","x003ax");
                 blogData.setUri(uriStr);
             }
+            if(blogData.getSummarize().contains("/") || blogData.getSummarize().contains(" ") ||blogData.getUri().contains(":") ||blogData.getSummarize().contains("\n") ){
+                String sum = blogData.getSummarize();
+                sum = sum.replace("/","x0027x");
+                sum = sum.replace(" ","x160x");
+                sum = sum.replace(":","x003ax");
+                sum = sum.replace("\n","x000ax");
+                blogData.setSummarize(sum);
+            }
+
         }
         SharedPreferencesUtil.setDataList(context,getFileName(),key,blogDataList);
 

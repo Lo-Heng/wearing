@@ -3,6 +3,7 @@ package com.androidlo.wearing;
 
 import android.content.Context;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,30 +27,49 @@ import org.w3c.dom.Text;
 
 public class DetailActivity extends BaseActivity {
 
+    public static String EXTRA_TITLE = "title";//文章标题
+    public static String EXTRA_SUMMARIZE = "summarize";//摘要（其实是内容）
+    public static String EXTRA_AUTHOR = "author";//作者
+    public static String EXTRA_PHOTO = "photo";//图片
+    private String mTitle;
+    private String mSummarize;
+    private String mAuthor;
+    private String mPhotoUri;
 
-    public static DetailActivity instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_detail);
-        setCustomTitle("如何穿搭");
+        setCustomTitle("文章详情");
+
+        getIntentValue();
 
         TextView tvTitle = findViewById(R.id.tv_title);
         TextView tvSummarize = findViewById(R.id.tv_summarize);
         ImageView ivPhoto = findViewById(R.id.iv_photo);
+        TextView tvAuthor = findViewById(R.id.tv_author);
 
-        tvTitle.setText(R.string.title);
-        tvSummarize.setText(R.string.article);
-        ivPhoto.setImageResource(R.drawable.main1);
+        tvTitle.setText(mTitle);
+        tvSummarize.setText(mSummarize);
+        tvAuthor.setText("作者：" + mAuthor);
+        ivPhoto.setImageURI(Uri.parse(mPhotoUri));
 
     }
+
+    private void getIntentValue() {
+        mTitle = getIntent().getStringExtra(EXTRA_TITLE);
+        mSummarize = getIntent().getStringExtra(EXTRA_SUMMARIZE);
+        mAuthor = getIntent().getStringExtra(EXTRA_AUTHOR);
+        mPhotoUri = getIntent().getStringExtra(EXTRA_PHOTO);
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
     }
-
 
 
 }

@@ -77,11 +77,13 @@ public class BlogData {
         isCollect = collect;
     }
 
-    public String getDecodeUriString(){
-        String decodeUri ;
-        decodeUri = uri.replace("x0027x","/");
+
+    public static String getDecodeString(String  decodeUri){
+
+        decodeUri = decodeUri.replace("x0027x","/");
         decodeUri = decodeUri.replace("x160x"," ");
         decodeUri = decodeUri.replace("x003ax",":");
+        decodeUri = decodeUri.replace("x000ax","\n");
         return decodeUri;
     }
 }

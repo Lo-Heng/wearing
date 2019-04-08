@@ -153,6 +153,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.my_anim_in, android.R.anim.fade_out);
     }
 
+
     public void skip2Main() {
         startNewPage(MainActivity.class);
         this.finish();

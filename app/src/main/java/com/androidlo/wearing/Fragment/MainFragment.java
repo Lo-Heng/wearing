@@ -1,9 +1,12 @@
 package com.androidlo.wearing.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,6 +39,8 @@ import com.google.gson.JsonSerializer;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -120,13 +125,19 @@ public class MainFragment extends Fragment {
         recyclerView.addItemDecoration(new RecyclerItemDecoration(6, 2));
 
 
-        List<BlogData> blogDataList;
+        final List<BlogData> blogDataList;
 
 
         mAdapter.setItemEvent(new MyAdapter.ItemEvent() {
             @Override
             public void onItemClick(int position) {
-                ((MainActivity)getActivity()).startNewPage(DetailActivity.class);
+                Intent intent = new Intent(getContext(),DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_TITLE,mBlogDataList.get(position).getTitle());
+                intent.putExtra(DetailActivity.EXTRA_SUMMARIZE,BlogData.getDecodeString(mBlogDataList.get(position).getSummarize()));
+                intent.putExtra(DetailActivity.EXTRA_AUTHOR,mBlogDataList.get(position).getAuthor());
+                intent.putExtra(DetailActivity.EXTRA_PHOTO,BlogData.getDecodeString(mBlogDataList.get(position).getUri()));
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.my_anim_in, android.R.anim.fade_out);
             }
 
             @Override
@@ -142,18 +153,30 @@ public class MainFragment extends Fragment {
 
     private void initData() {
         List<BlogData> blogDataList = new ArrayList<>();
-        BlogData blogData1 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main1).toString(), "潮流穿搭1", "简介简介简介", "用户1", true, false);
-        BlogData blogData2 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main2).toString(), "潮流穿搭2", "简介简介简介", "用户2", true, false);
-        BlogData blogData3 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.main3).toString(), "潮流穿搭3", "简介简介简介", "用户3", true, false);
+        BlogData blogData1 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.article1_photo).toString(), getString(R.string.title1), getString(R.string.article1), "小龙女", true, false);
+        BlogData blogData2 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.article2_photo).toString(), getString(R.string.title2), getString(R.string.article2), "小龙女", true, false);
+        BlogData blogData3 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.article3_photo).toString(), getString(R.string.title3), getString(R.string.article3), "小龙女", true, false);
+        BlogData blogData4 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.article4_photo).toString(), getString(R.string.title4), getString(R.string.article4), "Yee", true, false);
+        BlogData blogData5 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.article5_photo).toString(),  getString(R.string.title5), getString(R.string.article5), "Yee", true, false);
+        BlogData blogData6 = new BlogData(UriUtils.resourceIdToUri(getContext(), R.drawable.article6_photo).toString(),  getString(R.string.title6), getString(R.string.article6), "Yee", true, false);
+
         blogDataList.add(blogData1);
         blogDataList.add(blogData2);
         blogDataList.add(blogData3);
-
+        blogDataList.add(blogData4);
+        blogDataList.add(blogData5);
+        blogDataList.add(blogData6);
         mBlogDataList = mListManager.getObjectList(Constant.KEY_MAIN_FRAGMENT_LIST);
         if (mBlogDataList.isEmpty()) {
             mBlogDataList.addAll(blogDataList);
         }
         mListManager.setObjectList(mBlogDataList, Constant.KEY_MAIN_FRAGMENT_LIST);
+    }
+
+    private byte[] Bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 
 

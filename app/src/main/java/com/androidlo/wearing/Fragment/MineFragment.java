@@ -91,9 +91,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             public void onClick(DialogInterface dialogInterface, int i) {
                 SharedPreferencesUtil.save(getActivity().getApplicationContext(),getFileName(),Constant.KEY_MY_SIGN,etSign.getText().toString());
 
-
                 setSign();
-
 
             }
         });
