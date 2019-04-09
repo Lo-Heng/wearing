@@ -23,6 +23,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.androidlo.wearing.model.Constant;
@@ -36,7 +37,7 @@ public class LoginActivity extends Activity {
 
     private EditText mEtPassword;
     private EditText mEtAccount;
-    private LinearLayout mLlParent;
+    private FrameLayout mLlParent;
     private Button mBtnLogin;
     private Button mSignUp;
     public static LoginActivity instance;
@@ -52,10 +53,12 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         mProgressDialog = new ProgressDialog(this);//1.创建一个ProgressDialog的实例
 
+
 //        setCustomTitle(getString(R.string.title_activity_login));
         instance = this;
 
         mLlParent = findViewById(R.id.parent);
+        mLlParent.setClickable(false);
         mEtPassword = findViewById(R.id.et_password);
         mEtAccount = findViewById(R.id.et_account);
         mBtnLogin = findViewById(R.id.btn_log_in);
@@ -217,7 +220,7 @@ public class LoginActivity extends Activity {
     //失去焦点
     //传入一个无关紧要的控件,转移焦点
     protected void lostFocus(View parent) {
-        parent.setClickable(true);
+//        parent.setClickable(true);
         parent.setFocusable(true);
         parent.setFocusableInTouchMode(true);
         parent.requestFocusFromTouch();
