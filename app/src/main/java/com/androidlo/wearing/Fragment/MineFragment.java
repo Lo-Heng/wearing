@@ -82,8 +82,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private void showDialog() {
         final EditText etSign = new EditText(getContext());
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
-        builder.setTitle("Material Design Dialog");
-        builder.setMessage("这是 android.support.v7.app.AlertDialog 中的样式");
+        builder.setTitle("更改个性签名");
+//        builder.setMessage("");
         builder.setView(etSign);
         builder.setNegativeButton("取消", null);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

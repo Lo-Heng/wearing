@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.androidlo.wearing.model.Constant;
@@ -26,7 +27,7 @@ public class RegisterActivity extends BaseActivity {
     private TextInputEditText mTiEtPsw, mTiEtAcc;
     private EditText mEtPassword;
     private EditText mEtAccount;
-    private LinearLayout mLlParent;
+    private FrameLayout mLlParent;
     private Button mBtnReg;
     private EditText mEtConfirmPsw;
 
@@ -121,7 +122,7 @@ public class RegisterActivity extends BaseActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     assert v != null;
-                    imm.toggleSoftInput(0, InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                    imm.hideSoftInputFromWindow(mLlParent.getWindowToken(), 0);
                     lostFocus(mLlParent);
                 }
             }

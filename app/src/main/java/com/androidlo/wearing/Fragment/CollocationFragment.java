@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,14 +35,20 @@ public class CollocationFragment extends Fragment implements View.OnClickListene
 
 
     public static CollocationFragment sMainFragment;
-    private boolean[] chooseTag = new boolean[4];
+    private boolean[] chooseTag = new boolean[8];
 
     private ImageView mIvBody;
     private TextView mTvRightText;
+    private ImageView mIvCap;
+    private ImageView mIvShirt;
+    private ImageView mIvTrousers;
+    private ImageView mIvShoes;
+    private FrameLayout mFlModalRoot;
 
     public static CollocationFragment getInstance() {
         if (sMainFragment == null) {
             sMainFragment = new CollocationFragment();
+
         }
         return sMainFragment;
     }
@@ -99,61 +106,7 @@ public class CollocationFragment extends Fragment implements View.OnClickListene
         return bmp;
     }
 
-    private void refreshView() {
-        int count = 0;
-        for (int i = 0; i < chooseTag.length; i++) {
-            if (chooseTag[i]) {
-                count++;
-            }
-        }
-        String[] stringArray;
-        int resId = -1;
-        switch (count) {
-            case 0:
-                mIvBody.setImageResource(R.drawable.lady);
-                break;
-            case 1:
-                stringArray = getResources().getStringArray(R.array.suit1_choose_one);
-                for (int i = 0; i < chooseTag.length; i++) {
-                    if (chooseTag[i]) {
-                        resId = getResources().getIdentifier(stringArray[i], "drawable", getContext().getPackageName());
-                        mIvBody.setImageResource(resId);
-                    }
-                }
-                break;
-            case 2:
-                stringArray = getResources().getStringArray(R.array.suit1_choose_two);
-                int index = 0;
-                for (int i = 0; i < chooseTag.length; i++) {
-                    for (int j = i + 1; j < chooseTag.length; j++) {
-                        if (chooseTag[i] && chooseTag[j]) {
-                            resId = getResources().getIdentifier(stringArray[index], "drawable", getContext().getPackageName());
-                        }
-                        index++;
-                    }
-                }
-                mIvBody.setImageResource(resId);
-                break;
-            case 3:
-                stringArray = getResources().getStringArray(R.array.suit1_choose_three);
-                index = 0;
-                for (int i = 0; i < chooseTag.length; i++) {
-                    for (int j = i + 1; j < chooseTag.length; j++) {
-                        for (int k = j + 1; k < chooseTag.length; k++) {
-                            if (chooseTag[i] && chooseTag[j] && chooseTag[k]) {
-                                resId = getResources().getIdentifier(stringArray[index], "drawable", getContext().getPackageName());
-                            }
-                            index++;
-                        }
-                    }
-                }
-                mIvBody.setImageResource(resId);
-                break;
-            case 4:
-                mIvBody.setImageResource(R.drawable.all1);
-                break;
-        }
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -168,17 +121,38 @@ public class CollocationFragment extends Fragment implements View.OnClickListene
         View root = inflater.inflate(R.layout.fragment_collocation, container, false);
 
         mIvBody = root.findViewById(R.id.iv_body);
-        ImageView ivCap = root.findViewById(R.id.iv_cap);
-        ImageView ivShirt = root.findViewById(R.id.iv_shirt);
-        ImageView ivTrousers = root.findViewById(R.id.iv_trousers);
-        ImageView ivShoes = root.findViewById(R.id.iv_shoes);
+        mFlModalRoot = root.findViewById(R.id.fl_modal_root);
+        //左边人物身上的
+        mIvCap = root.findViewById(R.id.iv_cap);
+        mIvShirt = root.findViewById(R.id.iv_shirt);
+        mIvTrousers = root.findViewById(R.id.iv_trousers);
+        mIvShoes = root.findViewById(R.id.iv_shoes);
+
+        //右边衣服选择
+        ImageView ivCap1 = root.findViewById(R.id.iv_cap1);
+        ImageView ivCap2 = root.findViewById(R.id.iv_cap2);
+        ImageView ivShirt1 = root.findViewById(R.id.iv_shirt1);
+        ImageView ivShirt2 = root.findViewById(R.id.iv_shirt2);
+        ImageView ivTrousers1 = root.findViewById(R.id.iv_trousers1);
+        ImageView ivTrousers2 = root.findViewById(R.id.iv_trousers2);
+        ImageView ivShoes1 = root.findViewById(R.id.iv_shoes1);
+        ImageView ivShoes2 = root.findViewById(R.id.iv_shoes2);
+
+        //设置点击事件
+        ivCap1.setOnClickListener(this);
+        ivCap2.setOnClickListener(this);
+        ivShirt1.setOnClickListener(this);
+        ivShirt2.setOnClickListener(this);
+        ivTrousers1.setOnClickListener(this);
+        ivTrousers2.setOnClickListener(this);
+        ivShoes1.setOnClickListener(this);
+        ivShoes2.setOnClickListener(this);
+
         mTvRightText = ((MainActivity)getActivity()).findViewById(R.id.tv_right_text);
         mTvRightText.setOnClickListener(this);
         mTvRightText.setText("保存");
-        ivCap.setOnClickListener(this);
-        ivShirt.setOnClickListener(this);
-        ivTrousers.setOnClickListener(this);
-        ivShoes.setOnClickListener(this);
+
+
         return root;
 
     }
@@ -201,29 +175,61 @@ public class CollocationFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_cap:
+            case R.id.iv_cap1:
+//                refreshView();
+                mIvCap.setImageResource(R.drawable.dress_cap1);
                 chooseTag[0] = !chooseTag[0];
-                refreshView();
                 break;
-            case R.id.iv_shirt:
+            case R.id.iv_cap2:
+                mIvCap.setImageResource(R.drawable.dress_cap2);
                 chooseTag[1] = !chooseTag[1];
-                refreshView();
+//                refreshView();
                 break;
-            case R.id.iv_trousers:
+            case R.id.iv_shirt1:
+                mIvShirt.setImageResource(R.drawable.dress_shirt1);
                 chooseTag[2] = !chooseTag[2];
-                refreshView();
+//                refreshView();
                 break;
-            case R.id.iv_shoes:
+            case R.id.iv_shirt2:
+                mIvShirt.setImageResource(R.drawable.dress_shirt2);
                 chooseTag[3] = !chooseTag[3];
-                refreshView();
+//                refreshView();
                 break;
+            case R.id.iv_trousers1:
+                mIvTrousers.setImageResource(R.drawable.dress_trousers1);
+                chooseTag[4] = !chooseTag[4];
+//                refreshView();
+                break;
+            case R.id.iv_trousers2:
+                mIvTrousers.setImageResource(R.drawable.dress_trousers2);
+                chooseTag[5] = !chooseTag[5];
+//                refreshView();
+                break;
+            case R.id.iv_shoes1:
+                mIvShoes.setImageResource(R.drawable.dress_shoes1);
+                chooseTag[6] = !chooseTag[6];
+//                refreshView();
+                break;
+            case R.id.iv_shoes2:
+                mIvShoes.setImageResource(R.drawable.dress_shoes2);
+                chooseTag[7] = !chooseTag[7];
+//                refreshView();
+                break;
+
             case R.id.tv_right_text:
-                viewSaveToImage(mIvBody);
+                viewSaveToImage(mFlModalRoot);
                 break;
 
         }
+//        refreshView();
 
     }
+
+//    private void refreshView(int position) {
+//        if(chooseTag[position] && chooseTag[position%4] == false){
+//
+//        }
+//    }
 
 
 }

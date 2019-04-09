@@ -104,7 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     //失去焦点
     //传入一个无关紧要的控件,转移焦点
     protected void lostFocus(View parent) {
-        parent.setClickable(true);
+//        parent.setClickable(true);
         parent.setFocusable(true);
         parent.setFocusableInTouchMode(true);
         parent.requestFocusFromTouch();

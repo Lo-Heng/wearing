@@ -7,10 +7,27 @@
     android:clickable="false"
     android:gravity="center"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:scaleType="fitEnd"
+        android:src="@drawable/logo" />
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:text="忘记密码? 注册" />
 
 
     <LinearLayout
@@ -26,7 +43,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:layout_width="0dp"
@@ -41,58 +60,49 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="8"
-                android:maxLines="1"
-                android:singleLine="true"
                 android:hint="账号"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textColorLink="@color/white" />
+                android:imeOptions="actionNext"
+                style="Login_EditText" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:padding="10dp"
                 android:layout_weight="1"
+                android:padding="10dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/password" />
 
             <EditText
                 android:id="@+id/et_password"
+                style="Login_EditText"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="8"
-                android:hint="@string/input_password"
+                android:hint="密码"
                 android:imeActionId="6"
                 android:imeOptions="actionDone"
-
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/white" />
+                android:inputType="textPassword" />
         </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_log_in"
             style="@style/Login_Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
+
             android:text="@string/login" />
 
-        <Button
-            android:id="@+id/btn_sign_up"
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/sign_up" />
     </LinearLayout>
-
 </FrameLayout>

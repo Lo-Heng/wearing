@@ -131,7 +131,7 @@ public class LoginActivity extends Activity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     assert v != null;
-                    imm.toggleSoftInput(0, InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                    imm.hideSoftInputFromWindow(mLlParent.getWindowToken(), 0);
                     lostFocus(mLlParent);
                 }
             }

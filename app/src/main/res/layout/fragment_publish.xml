@@ -9,9 +9,8 @@
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@drawable/background"
-    android:scaleType="centerCrop"
-    android:foreground="@color/transBlack"/>
+    android:src="@drawable/reg_bg"
+    android:scaleType="centerCrop"/>
     <android.support.v7.widget.CardView
         android:id="@+id/cv_contain_publish"
         android:layout_width="match_parent"

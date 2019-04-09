@@ -1,10 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,78 +11,115 @@
     android:background="@drawable/reg_bg"
     >
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="200dp"
+            android:textSize="50sp"
+            android:text="SIGN UP"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:textColor="#ccffffff"/>
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
-
-                <EditText
-                    android:id="@+id/et_account"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/input_accout"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/account" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
+                        <EditText
+                            android:id="@+id/et_account"
+                            style="@style/Login_EditText"
+                            android:layout_width="0dp"
+                            android:layout_weight="8"
+                            android:hint="@string/input_accout" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_password"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/input_password"
-                    android:imeActionId="6"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/password" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
+                        <EditText
+                            android:id="@+id/et_password"
+                            style="@style/Login_EditText"
+                            android:layout_width="0dp"
+                            android:layout_weight="8"
+                            android:hint="@string/input_password"
+                            android:imeActionId="6"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_confirm_password"
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/input_password"
-                    android:imeActionId="6"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
-            </android.support.design.widget.TextInputLayout>
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/password" />
+
+                        <EditText
+                            android:id="@+id/et_confirm_password"
+                            style="@style/Login_EditText"
+                            android:layout_width="0dp"
+                            android:layout_weight="8"
+
+                            android:hint="@string/input_pwd_again"
+                            android:imeActionId="6"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword" />
+                </LinearLayout>
+
+
 
             <Button
                 android:id="@+id/btn_sign_up"
-                style="@style/Normal_Button"
+                style="@style/Login_Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:layout_marginTop="16dp"
                 android:text="@string/sign_up_and_login" />
+
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</FrameLayout>

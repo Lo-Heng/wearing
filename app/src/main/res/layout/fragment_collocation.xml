@@ -1,71 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_blooth_talk"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa">
 
-<ImageView
-    android:id="@+id/iv_body"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:src="@drawable/lady"
-    android:adjustViewBounds="true" />
-    
+    <FrameLayout
+        android:id="@+id/fl_modal_root"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_body"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/lady" />
+
+        <ImageView
+            android:id="@+id/iv_cap"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dress_cap2" />
+
+
+
+        <ImageView
+            android:id="@+id/iv_shoes"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dress_shoes1" />
+        <ImageView
+            android:id="@+id/iv_trousers"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dress_trousers1" />
+        <ImageView
+            android:id="@+id/iv_shirt"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dress_shirt1" />
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
-        android:orientation="vertical"
-        android:background="@drawable/input_bg"
-        >
-        <ImageView
-            android:id="@+id/iv_cap"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/cap1"
-            android:padding="5dp"
-            />
-        <!--分割线-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/Divider"/>
-        <ImageView
-            android:id="@+id/iv_shirt"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/shirt1"
-            android:padding="5dp"
+        android:orientation="horizontal">
 
-            />
-        <!--分割线-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/Divider"/>
-        <ImageView
-            android:id="@+id/iv_trousers"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/trousers1"
-            android:padding="5dp"
-            />
-        <!--分割线-->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/Divider"/>
-        <ImageView
-            android:id="@+id/iv_shoes"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/shoes1"
-            android:padding="5dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_bg"
+            android:orientation="vertical">
 
-            />
+            <ImageView
+                android:id="@+id/iv_cap1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/cap1" />
+            <!--分割线-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/Divider" />
 
+            <ImageView
+                android:id="@+id/iv_shirt1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/shirt1"
+
+                />
+            <!--分割线-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/Divider" />
+
+            <ImageView
+                android:id="@+id/iv_trousers1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/trousers1" />
+            <!--分割线-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/Divider" />
+
+            <ImageView
+                android:id="@+id/iv_shoes1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/shoes1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/input_bg"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_cap2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/cap2" />
+            <!--分割线-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/Divider" />
+
+            <ImageView
+                android:id="@+id/iv_shirt2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/shirt2"
+
+                />
+            <!--分割线-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/Divider" />
+
+            <ImageView
+                android:id="@+id/iv_trousers2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/trousers2" />
+            <!--分割线-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/Divider" />
+
+            <ImageView
+                android:id="@+id/iv_shoes2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="5dp"
+                android:src="@drawable/shoes2" />
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>
