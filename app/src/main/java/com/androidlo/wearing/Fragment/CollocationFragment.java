@@ -1,6 +1,8 @@
 package com.androidlo.wearing.Fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,7 +11,9 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -217,7 +221,15 @@ public class CollocationFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.tv_right_text:
-                viewSaveToImage(mFlModalRoot);
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    //授权先
+                    viewSaveToImage(mFlModalRoot);
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, Constant.ALBUM_REQUEST_CODE);
+                }
+
                 break;
 
         }

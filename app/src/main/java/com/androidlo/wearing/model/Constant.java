@@ -5,6 +5,8 @@ package com.androidlo.wearing.model;
  */
 
 public class Constant {
+    //我的个性签名
+    public static final String KEY_MY_ICON = "my_icon";
     //发博客储存标记
     public static final String KEY_MY_SIGN = "my_sign";
     //取首页推荐列表

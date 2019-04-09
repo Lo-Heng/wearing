@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:paddingLeft="10dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_my_name"
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="我的收藏"
                 android:textColor="@color/TextPrimary"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,7 +80,7 @@
                 android:layout_below="@+id/tv_my_collect"
                 android:text="显示我的收藏搭配"
                 android:textColor="@color/TextLight"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -106,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="我的发布"
                 android:textColor="@color/TextPrimary"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,7 +115,7 @@
                 android:layout_below="@+id/tv_my_publish"
                 android:text="显示我发布的搭配"
                 android:textColor="@color/TextLight"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -141,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="我的关注"
                 android:textColor="@color/TextPrimary"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -149,7 +150,7 @@
                 android:layout_below="@+id/tv_my_subscribe"
                 android:text="显示我关注的作者"
                 android:textColor="@color/TextLight"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="15dp"

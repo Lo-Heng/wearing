@@ -129,6 +129,7 @@ public class PublishFragment extends Fragment {
                     blogDataList.add(blogData);
                     mListManager.setObjectList(blogDataList,Constant.KEY_MAIN_FRAGMENT_LIST);
                     ((MainActivity)getActivity()).showToast("发布成功");
+                    clearAll();
 //                    publishList = mListManager.getObjectList(Constant.KEY_MY_PUBLISH_LIST);
 //                    if(publishList.isEmpty()){
 //                        publishList = new ArrayList<>();
@@ -147,6 +148,12 @@ public class PublishFragment extends Fragment {
 
             }
         });
+    }
+
+    private void clearAll() {
+        mEtPublishTitle.setText("");
+        mEtPublishSummarize.setText("");
+        mIvPublishPhoto.setImageResource(R.drawable.plus_bg);
     }
 
     private String getFileName() {
